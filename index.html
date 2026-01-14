@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática I - Bienvenida UNITEC</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark-bg: #0f0f23;
+            --dark-card: #1a1a2e;
+            --purple: #667eea;
+            --cyan: #4facfe;
+            --text-light: #e8e8f0;
+            --text-gray: #a0a0b8;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 35, 0.85);
+            backdrop-filter: blur(20px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-gray);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 5% 4rem;
+            z-index: 1;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            animation: float 15s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(79, 172, 254, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(5deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(-5deg);
+            }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: rgba(102, 126, 234, 0.15);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--cyan);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 50%, #4facfe 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            color: var(--cyan);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-gray);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--primary-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+            animation: fadeInUp 0.8s ease 0.8s backwards;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            background: var(--dark-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--cyan);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .card:hover::before {
+            opacity: 0.05;
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            filter: drop-shadow(0 0 20px rgba(102, 126, 234, 0.5));
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .card p {
+            color: var(--text-gray);
+            line-height: 1.7;
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .card li {
+            padding: 0.5rem 0;
+            color: var(--text-gray);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--cyan);
+            font-weight: bold;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+            margin: 3rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--purple), var(--cyan));
+        }
+
+        .timeline-item {
+            margin-bottom: 4rem;
+            width: 45%;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 55%;
+            padding-left: 3rem;
+            text-align: left;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, 0);
+            width: 20px;
+            height: 20px;
+            background: var(--cyan);
+            border: 4px solid var(--dark-bg);
+            border-radius: 50%;
+            top: 1.5rem;
+            box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 4px rgba(79, 172, 254, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 0 8px rgba(79, 172, 254, 0.1);
+            }
+        }
+
+        .timeline-content {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: scale(1.02);
+        }
+
+        .timeline-content h4 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--cyan);
+        }
+
+        .timeline-content p {
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+
+        /* Methodology Section - Special Style */
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        /* Grading Scale Section */
+        .grading-scale-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grading-scale {
+            background: rgba(26, 26, 46, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem;
+        }
+
+        .grading-scale h3 {
+            text-align: center;
+            color: var(--cyan);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+
+        .grading-table {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .grading-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            padding: 0.8rem 1rem;
+            background: rgba(15, 15, 35, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(102, 126, 234, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .grading-row:hover {
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .grading-row.highlight {
+            background: rgba(79, 172, 254, 0.15);
+            border-color: rgba(79, 172, 254, 0.4);
+        }
+
+        .grading-cell {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        .grading-value {
+            color: var(--cyan);
+            font-weight: 700;
+            text-align: right;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 15, 35, 0.8);
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        footer p {
+            color: var(--text-gray);
+            margin: 0.5rem 0;
+        }
+
+        .footer-highlight {
+            color: var(--cyan);
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .methodology-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding-top: 8rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                width: 100%;
+                margin-left: 0;
+                padding-left: 60px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-dot {
+                left: 20px;
+                transform: translateX(0);
+            }
+        }
+
+        /* Scroll Animation */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">Informática I</div>
+        <ul class="nav-links">
+            <li><a href="#objetivos">Objetivos</a></li>
+            <li><a href="#temario">Temario</a></li>
+            <li><a href="#metodologia">Metodología</a></li>
+            <li><a href="#evaluacion">Evaluación</a></li>
+            <li><a href="#esquema">Esquema</a></li>
+            <li><a href="#reglas">Reglas</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">✨ Cuatrimestre 26-2 | UNITEC</div>
+            <h1>Informática I</h1>
+            <div class="hero-subtitle">Prof. Daniel García - Del clic al control total</div>
+            <p>Domina los fundamentos de la computación, sistemas operativos y Office 365 con inteligencia artificial
+                integrada.</p>
+            <a href="#objetivos" class="cta-button">Explora el Curso</a>
+        </div>
+    </section>
+
+    <!-- Objetivos Section -->
+    <section id="objetivos">
+        <div class="section-header animate-on-scroll">
+            <div class="section-tag">Lo que aprenderás</div>
+            <h2 class="section-title">Objetivos del Curso</h2>
+            <p class="section-description">Desarrolla competencias tecnológicas fundamentales para el mundo digital</p>
+        </div>
+        <div class="grid">
+            <div class="card animate-on-scroll">
+                <div class="card-icon">📚</div>
+                <h3>Fundamentos</h3>
+                <p>Comprende qué es la informática, su importancia en la vida cotidiana y cómo la tecnología impacta en
+                    la sociedad moderna.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">💻</div>
+                <h3>Sistemas Operativos</h3>
+                <p>Domina sistemas operativos, hardware y software. Reconoce componentes de una computadora y su
+                    funcionamiento.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">⚙️</div>
+                <h3>Programación Básica</h3>
+                <p>Conoce lenguajes de programación, algoritmos y estructuras de datos en contextos prácticos del día a
+                    día.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">🤖</div>
+                <h3>Office 365 + IA</h3>
+                <p>Utiliza Word, PowerPoint y Excel con Copilot e inteligencia artificial para maximizar tu
+                    productividad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Temario Section -->
+    <section id="temario">
+        <div class="section-header animate-on-scroll">
+            <div class="section-tag">Plan de estudios</div>
+            <h2 class="section-title">Contenido Temático</h2>
+            <p class="section-description">14 semanas | 54 horas | 3 parciales</p>
+        </div>
+        <div class="grid">
+            <div class="card animate-on-scroll">
+                <div class="card-icon">1️⃣</div>
+                <h3>Parcial I: Introducción a la Informática</h3>
+                <p><strong>Semanas 1-2</strong></p>
+                <ul>
+                    <li>Definición e importancia de la informática</li>
+                    <li>Clasificación de computadoras</li>
+                    <li>Sistemas operativos fundamentales</li>
+                    <li>Historia y evolución tecnológica</li>
+                </ul>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">2️⃣</div>
+                <h3>Parcial II: Hardware & Software</h3>
+                <p><strong>Semanas 3-7</strong></p>
+                <ul>
+                    <li>Componentes físicos (CPU, memoria, periféricos)</li>
+                    <li>Software de sistema y aplicación</li>
+                    <li>Programación básica (JavaScript, HTML)</li>
+                    <li>Redes y conectividad</li>
+                </ul>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">3️⃣</div>
+                <h3>Parcial III: Aplicaciones Prácticas</h3>
+                <p><strong>Semanas 8-14</strong></p>
+                <ul>
+                    <li>Microsoft Word con IA</li>
+                    <li>PowerPoint profesional</li>
+                    <li>Excel y análisis de datos</li>
+                    <li>Algoritmos y proyectos finales</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metodología Section -->
+    <section id="metodologia">
+        <div class="section-header animate-on-scroll">
+            <div class="section-tag">Cómo aprenderás</div>
+            <h2 class="section-title">Metodología de Enseñanza</h2>
+            <p class="section-description">Un enfoque moderno y práctico para el aprendizaje tecnológico</p>
+        </div>
+        <div class="methodology-grid">
+            <div class="card animate-on-scroll">
+                <div class="card-icon">🎯</div>
+                <h3>Teórico-Práctico</h3>
+                <p>Combinamos conceptos teóricos con ejercicios prácticos en computadora. Cada tema incluye actividades
+                    hands-on para aplicar lo aprendido inmediatamente.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">🧠</div>
+                <h3>Pensamiento Crítico</h3>
+                <p>Desarrollarás razonamiento lógico y creatividad resolviendo problemas reales con tecnología. Aprende
+                    a pensar como un ingeniero.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">👥</div>
+                <h3>Aprendizaje Colaborativo</h3>
+                <p>Trabajarás en equipos, compartiendo ideas en lluvias de ideas, exposiciones y proyectos conjuntos. La
+                    colaboración es clave.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">🤖</div>
+                <h3>Inteligencia Artificial</h3>
+                <p>Usarás Copilot, ChatGPT y herramientas de IA de manera responsable para potenciar tu aprendizaje y
+                    productividad.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Evaluación Timeline -->
+    <section id="evaluacion">
+        <div class="section-header animate-on-scroll">
+            <div class="section-tag">Calendario académico</div>
+            <h2 class="section-title">Sistema de Evaluación</h2>
+            <p class="section-description">Fechas importantes y criterios de calificación</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>📝 Primer Parcial - 10%</h4>
+                    <p><strong>Semana 4</strong><br>Examen teórico y práctico sobre los Parciales 1-3. Evalúa
+                        fundamentos
+                        de informática y conceptos básicos.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>📝 Segundo Parcial - 20%</h4>
+                    <p><strong>Semana 9</strong><br>Examen teórico y práctico sobre los Parciales 3-4. Incluye hardware,
+                        software y programación básica.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>📝 Tercer Parcial - 40%</h4>
+                    <p><strong>Semana 14</strong><br>Examen Final completo de Parciales 1-5. Proyecto integrador con
+                        aplicaciones prácticas de Office 365 e IA.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>⭐ Evaluación Continua - 10%</h4>
+                    <p><strong>Durante el cuatrimestre</strong><br>Participación activa, orden en clase, entregables
+                        puntuales, conducta profesional y asistencia.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h4>🎓 Webinar #1: Matemáticas e Informática</h4>
+                    <p><strong>50% Evaluación Continua</strong><br>Sesión especial integrando conceptos matemáticos con
+                        práctica informática.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Esquema de Evaluación -->
+    <section id="esquema">
+        <div class="section-header animate-on-scroll">
+            <div class="section-tag">Criterios de calificación</div>
+            <h2 class="section-title">Esquema de Evaluación para Exámenes y Evaluación Continua</h2>
+            <p class="section-description">Escala de calificación oficial</p>
+        </div>
+        <div class="grading-scale-container animate-on-scroll">
+            <div class="grading-scale">
+                <h3>Escala de Calificación</h3>
+                <div class="grading-table">
+                    <div class="grading-row">
+                        <div class="grading-cell">De 0.0 a 0.99</div>
+                        <div class="grading-cell grading-value">= 0</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 1.0 a 1.99</div>
+                        <div class="grading-cell grading-value">= 1</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 2.0 a 2.99</div>
+                        <div class="grading-cell grading-value">= 2</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 3.0 a 3.99</div>
+                        <div class="grading-cell grading-value">= 3</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 4.0 a 4.99</div>
+                        <div class="grading-cell grading-value">= 4</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 5.0 a 5.99</div>
+                        <div class="grading-cell grading-value">= 5</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 6.0 a 6.49</div>
+                        <div class="grading-cell grading-value">= 6</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 6.5 a 7.49</div>
+                        <div class="grading-cell grading-value">= 7</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 7.5 a 8.49</div>
+                        <div class="grading-cell grading-value">= 8</div>
+                    </div>
+                    <div class="grading-row">
+                        <div class="grading-cell">De 8.5 a 9.49</div>
+                        <div class="grading-cell grading-value">= 9</div>
+                    </div>
+                    <div class="grading-row highlight">
+                        <div class="grading-cell">De 9.5 a 10.0</div>
+                        <div class="grading-cell grading-value">= 10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reglas del Salón -->
+    <section id="reglas">
+        <div class="section-header animate-on-scroll">
+            <div class="section-tag">Convivencia</div>
+            <h2 class="section-title">Reglas del Salón de Clases</h2>
+            <p class="section-description">Normas para mantener un ambiente de aprendizaje óptimo</p>
+        </div>
+        <div class="grid">
+            <div class="card animate-on-scroll">
+                <div class="card-icon">🚪</div>
+                <h3>Puerta Trasera Cerrada</h3>
+                <p>La puerta permanecerá cerrada durante la clase con el fin de mantener un mayor orden con los alumnos.
+                </p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">🍽️</div>
+                <h3>No Comer en Salón</h3>
+                <p>COMIDA no permitida dentro del salón de clases. Mantén el espacio limpio y ordenado.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">💧</div>
+                <h3>Bebidas Permitidas</h3>
+                <p>BEBIDAS deben permanecer abajo, a un lado de tu pupitre. Evita derrames en equipo.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">💅</div>
+                <h3>Sin Maquillaje</h3>
+                <p>No maquillarse en salón de clases. Respeta el espacio académico.</p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">📱</div>
+                <h3>Sin Celulares</h3>
+                <p>CELULARES: utilizar solo en caso que el docente lo indique. Dispositivos prohibidos de lo contrario.
+                </p>
+            </div>
+            <div class="card animate-on-scroll">
+                <div class="card-icon">🎧</div>
+                <h3>Sin Audífonos</h3>
+                <p>AUDÍFONOS no son material para las clases. Mantén la concentración en el aprendizaje.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><span class="footer-highlight">Informática I - Cuatrimestre 26-2</span></p>
+        <p>UNITEC Campus Ecatepec | Prof. Daniel García</p>
+        <p style="margin-top: 1.5rem;">Integridad Académica • Responsabilidad • Excelencia</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">© 2026 UNITEC. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- JavaScript for Scroll Animations -->
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements with animate-on-scroll class
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect disabled to prevent text overlap
+        // window.addEventListener('scroll', () => {
+        //     const scrolled = window.pageYOffset;
+        //     const hero = document.querySelector('.hero');
+        //     if (hero && scrolled < window.innerHeight) {
+        //         hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+        //     }
+        // });
+    </script>
+</body>
+
+</html>
