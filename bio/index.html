@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Quién es tu profesor?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .section {
+            min-height: 100vh;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .title {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #60a5fa, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #94a3b8;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Estilos para la tarjeta giratoria */
+        .flip-card {
+            width: 500px;
+            height: 400px;
+            perspective: 1000px;
+            margin: 2rem auto;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 1rem;
+        }
+
+        .flip-card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 1rem;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(45deg, #60a5fa, #818cf8);
+            color: white;
+            transform: rotateY(180deg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .flip-card-back h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .flip-card-back p {
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 2rem auto;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.05);
+        }
+
+        .hobby-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .hobby-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .slogan {
+            font-style: italic;
+            color: #60a5fa;
+            font-size: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            font-size: 1.2rem;
+        }
+
+        .feature::before {
+            content: "🔹";
+            margin-right: 1rem;
+        }
+
+        .final-message {
+            font-size: 2rem;
+            padding: 2rem;
+            background: linear-gradient(45deg, #60a5fa33, #818cf833);
+            border-radius: 1rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sección 1: Introducción -->
+    <section class="section">
+        <h1 class="title">El guía cool detrás del curso</h1>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="img/ima1.jpg" alt="Profesor en UNITEC" />
+                </div>
+                <div class="flip-card-back">
+                    <h3>Maestro Daniel García Gutiérrez</h3>
+                    <p>💼 Más de 5 años de experiencia profesional.</p>
+                    <p>🎓 Licenciado en Administración de Tecnología de la Información.</p>
+                    <p>🎨 Maestría en Diseño Multimedia.</p>
+                    <p>💻 Analista de Sistemas y Profesor de Excel.</p>
+                    <p>📹 Creador de contenidos educativos, incluyendo tutoriales técnicos</p>
+                </div>
+            </div>
+        </div>
+        <p class="slogan">Del clic al control total.</p>
+    </section>
+
+    <!-- Sección 2: Gustos y Hobbies -->
+    <section class="section">
+        <h2 class="title">Conociendo a Daniel</h2>
+        <div class="content">
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <img src="img/ima2.jpeg" alt="Profesor en la montaña" />
+                    </div>
+                    <div class="flip-card-back">
+                        <h3>🧮¿Qué me inspiró a enseñar?</h3>
+                        <p>💼 Podría decir que fue la pobreza, pero no, es mi amor por la tecnología, la docencia y esa chispa de oratoria que siempre he tenido.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hobby-card">
+                <p>Amante del redbull y las pesas, de las buenas conversaciones y las celdas bien ordenadas.</p>
+            </div>
+            <div class="hobby-card">
+                <p>Fanático de los carros que queman llanta y hacen ratatatata 🚗💨</p>
+            </div>
+            <div class="hobby-card">
+                <p>¿Un gusto extraño? Resolver todo con chatgpt</p>
+            </div>
+            <div class="hobby-card">
+                <p>Me encanta hacer de comer</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección 3: Lado Interesante -->
+    <section class="section">
+        <h2 class="title">Un profe, pero diferente</h2>
+        <div class="content">
+            <p class="subtitle">No soy el típico profesor de Informatica...</p>
+            <div class="image-container">
+                <img src="img/imag3.jpeg" alt="Profesor haciendo ejercicio" />
+            </div>
+            <div class="feature">Te hablaré como un amigo, pero te enseñaré como un mentor.</div>
+            <div class="feature">Mi objetivo: que la tecnologia sea tu superpoder en la vida laboral.</div>
+            <div class="feature">Especialista en habilidades sociales, seducción y amistades</div>
+        </div>
+    </section>
+
+    <!-- Sección 4: Cierre -->
+    <section class="section">
+        <h2 class="title">¿Listos para aprender de forma diferente?</h2>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="img/imag4.jpg" alt="Profesor con estilo" />
+                </div>
+                <div class="flip-card-back">
+                    <p>🎓No les prometo que será fácil. Van a reír, enojarse, frustrarse… pero les aseguro que al final dominarán esas emociones y saldrán con una sonrisa.</p>
+                    <p>¿Mi fórmula secreta? Ser divertido y audaz, porque una clase aburrida nunca hizo a nadie poderoso.</p>
+                    <p>🚀Porque también exploraremos cómo la inteligencia artificial puede potenciar lo que aprendan aquí. 💻</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        document.querySelectorAll('.section').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
