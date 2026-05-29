@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNITEC - Excel Interactivo Pro</title>
+    <!-- Tailwind CSS para diseño moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome para Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        unitec: {
+                            blue: '#005088',
+                            sky: '#0284c7',
+                            cream: '#fcfbf7',
+                            yellow: '#ffd100',
+                            navy: '#0b1e33',
+                            accent: '#ff9100'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Estilos personalizados para animaciones y scroll */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(0, 80, 136, 0.1);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at 10% 20%, rgba(0, 80, 136, 1) 0%, rgba(11, 30, 51, 1) 90.1%);
+        }
+        /* Línea de juego */
+        .game-item-selected {
+            border-color: #005088 !important;
+            background-color: #f0f7ff !important;
+            box-shadow: 0 0 0 2px #005088;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-height-screen">
+
+    <!-- Navegación Fija -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 py-4 px-6 md:px-12 flex justify-between items-center shadow-sm">
+        <div class="flex items-center gap-3">
+            <div class="bg-unitec-blue text-white p-2.5 rounded-xl flex items-center justify-center font-bold text-lg tracking-wider">
+                U
+            </div>
+            <div>
+                <span class="font-display font-bold text-unitec-blue text-lg">Prep@ UNITEC</span>
+                <p class="text-xs text-slate-500 font-semibold tracking-wider">INFORMÁTICA II • SESIÓN 2</p>
+            </div>
+        </div>
+        
+        <!-- Barra de Progreso del Alumno -->
+        <div class="hidden md:flex items-center gap-4 w-1/3">
+            <span class="text-xs font-bold text-slate-500 whitespace-nowrap">TU PROGRESO:</span>
+            <div class="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                <div id="mainProgressBar" class="bg-unitec-sky h-full w-5 transition-all duration-500 rounded-full"></div>
+            </div>
+            <span id="progressPercentage" class="text-xs font-bold text-unitec-blue">5%</span>
+        </div>
+
+        <div class="flex gap-2">
+            <a href="#aprende" class="text-sm font-semibold text-slate-600 hover:text-unitec-blue px-3 py-2 rounded-lg transition-colors">Aprende</a>
+            <a href="#casos" class="text-sm font-semibold text-slate-600 hover:text-unitec-blue px-3 py-2 rounded-lg transition-colors">Práctica</a>
+            <a href="#desafio" class="bg-unitec-blue hover:bg-unitec-navy text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors shadow-md shadow-unitec-blue/20">Jugar Ahora</a>
+        </div>
+    </nav>
+
+    <!-- Héroe / Presentación de Impacto -->
+    <header class="hero-gradient text-white py-20 px-6 md:px-12 text-center relative overflow-hidden">
+        <!-- Decoraciones Abstractas de Fondo -->
+        <div class="absolute top-10 left-10 w-72 h-72 bg-unitec-sky/20 rounded-full filter blur-3xl"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-unitec-yellow/10 rounded-full filter blur-3xl"></div>
+
+        <div class="max-w-4xl mx-auto relative z-10">
+            <span class="bg-unitec-yellow text-unitec-navy font-bold text-xs uppercase px-4 py-1.5 rounded-full tracking-widest shadow-md">CICLO 25-1</span>
+            <h1 class="font-display font-extrabold text-4xl md:text-6xl mt-6 leading-tight">
+                Domina Excel Sin Esfuerzo:<br>
+                <span class="text-unitec-yellow">Atajos, Cursores y Lógica</span>
+            </h1>
+            <p class="text-slate-200 mt-6 text-lg md:text-xl max-w-2xl mx-auto font-light">
+                ¡Adiós a la teoría pesada! Explora los conceptos esenciales de forma visual y lúdica en este portal de aprendizaje interactivo.
+            </p>
+            <div class="mt-10 flex flex-wrap justify-center gap-4">
+                <a href="#aprende" class="bg-unitec-yellow hover:bg-amber-400 text-unitec-navy font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg shadow-unitec-yellow/20 flex items-center gap-2">
+                    <i class="fa-solid fa-graduation-cap"></i> Empezar Clase
+                </a>
+                <a href="#desafio" class="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 backdrop-blur-md border border-white/20 flex items-center gap-2">
+                    <i class="fa-solid fa-gamepad"></i> Ir directo al Juego
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MÓDULO 1: CLASE Y DEFINICIONES INTERACTIVAS -->
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-16">
+        
+        <!-- Tarjeta de Control del Progreso Manual -->
+        <div id="aprende" class="mb-16 scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                <div>
+                    <h2 class="font-display font-bold text-3xl text-unitec-blue">Módulo 1: Fundamentos Esenciales</h2>
+                    <p class="text-slate-500 mt-1">Explora los atajos indispensables y el lenguaje de los cursores antes de jugar.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="toggleSection('atajos')" id="btn-atajos" class="bg-unitec-blue text-white px-5 py-2.5 rounded-xl font-semibold shadow-md shadow-unitec-blue/10 transition-all">
+                        <i class="fa-solid fa-keyboard mr-2"></i> Atajos de Teclado
+                    </button>
+                    <button onclick="toggleSection('cursores')" id="btn-cursores" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-5 py-2.5 rounded-xl font-semibold transition-all">
+                        <i class="fa-solid fa-arrow-pointer mr-2"></i> Cursores de Excel
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUBSECCIÓN: ATAJOS DE TECLADO (INTERACTIVO) -->
+            <div id="section-atajos" class="transition-opacity duration-300">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    
+                    <!-- Tarjeta Atajo 1 -->
+                    <div class="glass-card p-6 rounded-2xl hover:shadow-xl transition-all duration-300 border-t-4 border-unitec-blue group" onclick="markConceptRead('atajo1')">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-unitec-blue/10 text-unitec-blue p-3 rounded-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-folder-open text-2xl"></i>
+                            </span>
+                            <span id="badge-atajo1" class="text-xs font-bold text-amber-500 bg-amber-50 px-2.5 py-1 rounded-full"><i class="fa-regular fa-eye"></i> No visto</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-2">Ctrl + A & Ctrl + G</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            <strong>Ctrl + A:</strong> Abre un libro de trabajo guardado previamente de manera inmediata.<br>
+                            <strong>Ctrl + G:</strong> Guarda el progreso actual de tu hoja. ¡Hazlo cada 5 minutos para evitar pérdidas de datos!
+                        </p>
+                        <div class="bg-slate-100 p-2.5 rounded-lg flex items-center justify-between text-xs font-semibold text-slate-500">
+                            <span>Nivel de Importancia</span>
+                            <span class="text-red-500"><i class="fa-solid fa-star"></i> Crítico</span>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta Atajo 2 -->
+                    <div class="glass-card p-6 rounded-2xl hover:shadow-xl transition-all duration-300 border-t-4 border-unitec-blue group" onclick="markConceptRead('atajo2')">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-unitec-blue/10 text-unitec-blue p-3 rounded-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-clone text-2xl"></i>
+                            </span>
+                            <span id="badge-atajo2" class="text-xs font-bold text-amber-500 bg-amber-50 px-2.5 py-1 rounded-full"><i class="fa-regular fa-eye"></i> No visto</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-2">Ctrl + C, V & X</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            La trinidad de la edición en Excel. Copia con <strong>Ctrl + C</strong>, pega con <strong>Ctrl + V</strong> y corta información con <strong>Ctrl + X</strong> sin necesidad de tocar el ratón.
+                        </p>
+                        <div class="bg-slate-100 p-2.5 rounded-lg flex items-center justify-between text-xs font-semibold text-slate-500">
+                            <span>Nivel de Importancia</span>
+                            <span class="text-unitec-sky"><i class="fa-solid fa-star"></i> Básico</span>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta Atajo 3 -->
+                    <div class="glass-card p-6 rounded-2xl hover:shadow-xl transition-all duration-300 border-t-4 border-unitec-blue group" onclick="markConceptRead('atajo3')">
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="bg-unitec-blue/10 text-unitec-blue p-3 rounded-xl group-hover:scale-110 transition-transform">
+                                <i class="fa-solid fa-eye-slash text-2xl"></i>
+                            </span>
+                            <span id="badge-atajo3" class="text-xs font-bold text-amber-500 bg-amber-50 px-2.5 py-1 rounded-full"><i class="fa-regular fa-eye"></i> No visto</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl mb-2">Ctrl + 9 & Ctrl + 0</h3>
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                            <strong>Ctrl + 9:</strong> Oculta las filas seleccionadas.<br>
+                            <strong>Ctrl + 0:</strong> Oculta las columnas seleccionadas.<br>
+                            Te permite filtrar visualmente un reporte confidencial sin borrar registros.
+                        </p>
+                        <div class="bg-slate-100 p-2.5 rounded-lg flex items-center justify-between text-xs font-semibold text-slate-500">
+                            <span>Nivel de Importancia</span>
+                            <span class="text-unitec-accent"><i class="fa-solid fa-star"></i> Avanzado</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SUBSECCIÓN: CURSORES DE EXCEL (INTERACTIVO) -->
+            <div id="section-cursores" class="hidden transition-opacity duration-300">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    
+                    <!-- Cursor 1 -->
+                    <div class="glass-card p-6 rounded-2xl hover:shadow-xl transition-all text-center border-b-4 border-unitec-sky cursor-pointer" onclick="markConceptRead('cursor1')">
+                        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-slate-700">
+                            +
+                        </div>
+                        <div class="flex justify-center mb-2">
+                            <span id="badge-cursor1" class="text-xs font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-full"><i class="fa-regular fa-eye"></i> No visto</span>
+                        </div>
+                        <h4 class="font-display font-bold text-lg text-unitec-blue mb-2">Cruz Blanca Gruesa</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">
+                            <strong>Función:</strong> Seleccionar celdas o rangos.<br>Aparece de forma predeterminada al navegar sobre tu hoja.
+                        </p>
+                    </div>
+
+                    <!-- Cursor 2 -->
+                    <div class="glass-card p-6 rounded-2xl hover:shadow-xl transition-all text-center border-b-4 border-unitec-sky cursor-pointer" onclick="markConceptRead('cursor2')">
+                        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold text-slate-800">
+                            ✛
+                        </div>
+                        <div class="flex justify-center mb-2">
+                            <span id="badge-cursor2" class="text-xs font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-full"><i class="fa-regular fa-eye"></i> No visto</span>
+                        </div>
+                        <h4 class="font-display font-bold text-lg text-unitec-blue mb-2">Cruz Negra Delgada</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">
+                            <strong>Función:</strong> Relleno y copiar fórmulas.<br>Se activa al posicionarte en la esquina inferior derecha de la celda.
+                        </p>
+                    </div>
+
+                    <!-- Cursor 3 -->
+                    <div class="glass-card p-6 rounded-2xl hover:shadow-xl transition-all text-center border-b-4 border-unitec-sky cursor-pointer" onclick="markConceptRead('cursor3')">
+                        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl text-slate-700">
+                            <i class="fa-solid fa-arrows-up-down-left-right"></i>
+                        </div>
+                        <div class="flex justify-center mb-2">
+                            <span id="badge-cursor3" class="text-xs font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-full"><i class="fa-regular fa-eye"></i> No visto</span>
+                        </div>
+                        <h4 class="font-display font-bold text-lg text-unitec-blue mb-2">Flechas Cruzadas</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">
+                            <strong>Función:</strong> Mover el contenido.<br>Aparece sobre los bordes de una celda seleccionada para arrastrarla.
+                        </p>
+                    </div>
+
+                    <!-- Cursor 4 -->
+                    <div class="glass-card p-6 rounded-2xl hover:shadow-xl transition-all text-center border-b-4 border-unitec-sky cursor-pointer" onclick="markConceptRead('cursor4')">
+                        <div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl text-slate-700">
+                            <i class="fa-solid fa-arrows-left-right"></i>
+                        </div>
+                        <div class="flex justify-center mb-2">
+                            <span id="badge-cursor4" class="text-xs font-bold text-amber-500 bg-amber-50 px-2 py-0.5 rounded-full"><i class="fa-regular fa-eye"></i> No visto</span>
+                        </div>
+                        <h4 class="font-display font-bold text-lg text-unitec-blue mb-2">Doble Flecha Lateral</h4>
+                        <p class="text-slate-500 text-xs leading-relaxed">
+                            <strong>Función:</strong> Ajuste de tamaño.<br>Aparece entre los encabezados de columnas (A, B, C...) o filas (1, 2, 3...).
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MÓDULO 2: CASOS PRÁCTICOS -->
+        <section id="casos" class="mb-20 scroll-mt-24">
+            <div class="mb-10 text-center">
+                <span class="text-xs font-extrabold text-unitec-sky tracking-wider uppercase">Retos del Mundo Real</span>
+                <h2 class="font-display font-bold text-4xl text-unitec-blue mt-2">Casos Prácticos de Aula UNITEC</h2>
+                <p class="text-slate-500 mt-2">Pon a prueba tu intuición con escenarios académicos típicos en Ecatepec.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Caso 1 -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border border-slate-100 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-unitec-sky/5 rounded-bl-full transition-all group-hover:w-28 group-hover:h-28"></div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="w-12 h-12 rounded-xl bg-unitec-sky/10 text-unitec-sky flex items-center justify-center text-xl font-bold">1</span>
+                        <h3 class="font-display font-bold text-xl text-slate-800">El Reporte Confidencial</h3>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                        Estás preparando la lista de calificaciones en Prep@ UNITEC. El coordinador te pide ocultar visualmente las columnas de "Teléfono de Contacto" y "Matrícula" antes de proyectarlas en clase, pero sin eliminar los datos. ¿Qué comando utilizas de forma óptima?
+                    </p>
+                    <div class="flex flex-col gap-2">
+                        <button onclick="checkCase(1, 'incorrect', this)" class="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-slate-300 text-sm font-semibold transition-all">
+                            A) Presiono la tecla <kbd class="bg-slate-100 px-1.5 py-0.5 rounded">Suprimir</kbd> tras seleccionar las celdas.
+                        </button>
+                        <button onclick="checkCase(1, 'correct', this)" class="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-slate-300 text-sm font-semibold transition-all">
+                            B) Selecciono las columnas y presiono el comando <kbd class="bg-slate-100 px-1.5 py-0.5 rounded">Ctrl + 0</kbd>.
+                        </button>
+                        <button onclick="checkCase(1, 'incorrect2', this)" class="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-slate-300 text-sm font-semibold transition-all">
+                            C) Utilizo el cursor de doble flecha para cerrarlas por completo.
+                        </button>
+                    </div>
+                    <div id="case-feedback-1" class="mt-4 text-sm font-bold min-h-[20px]"></div>
+                </div>
+
+                <!-- Caso 2 -->
+                <div class="bg-white p-8 rounded-2xl shadow-md border border-slate-100 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-unitec-accent/5 rounded-bl-full transition-all group-hover:w-28 group-hover:h-28"></div>
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="w-12 h-12 rounded-xl bg-unitec-accent/10 text-unitec-accent flex items-center justify-center text-xl font-bold">2</span>
+                        <h3 class="font-display font-bold text-xl text-slate-800">Cargar la misma Fórmula</h3>
+                    </div>
+                    <p class="text-slate-600 mb-6 text-sm leading-relaxed">
+                        Creaste una regla con la función <code class="bg-slate-100 px-1.5 py-0.5 rounded text-unitec-blue font-mono">=SI(Promedio &gt;= 7.0, "Aprobado", "Reprobado")</code> para el primer alumno. Tienes una lista de 45 estudiantes. ¿Cómo puedes replicar la fórmula para todos en menos de 2 segundos sin reescribir nada?
+                    </p>
+                    <div class="flex flex-col gap-2">
+                        <button onclick="checkCase(2, 'incorrect', this)" class="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-slate-300 text-sm font-semibold transition-all">
+                            A) Copio con <kbd class="bg-slate-100 px-1.5 py-0.5 rounded">Ctrl + C</kbd> y pego uno por uno usando <kbd class="bg-slate-100 px-1.5 py-0.5 rounded">Ctrl + V</kbd>.
+                        </button>
+                        <button onclick="checkCase(2, 'incorrect2', this)" class="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-slate-300 text-sm font-semibold transition-all">
+                            B) Arrastro el borde de la celda con el cursor de flechas cruzadas.
+                        </button>
+                        <button onclick="checkCase(2, 'correct', this)" class="w-full text-left p-3.5 rounded-xl border border-slate-200 hover:border-slate-300 text-sm font-semibold transition-all">
+                            C) Doy doble clic en la esquina inferior derecha cuando aparezca la Cruz Negra (✛).
+                        </button>
+                    </div>
+                    <div id="case-feedback-2" class="mt-4 text-sm font-bold min-h-[20px]"></div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MÓDULO 3: JUEGOS Y EVALUACIÓN -->
+        <section id="desafio" class="mb-10 scroll-mt-24">
+            <div class="bg-unitec-navy text-white rounded-3xl p-8 md:p-12 shadow-xl relative overflow-hidden">
+                <!-- Efectos Estéticos -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-unitec-blue rounded-full filter blur-3xl opacity-45"></div>
+                <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-unitec-sky/20 rounded-full filter blur-3xl"></div>
+                
+                <div class="max-w-4xl mx-auto relative z-10 text-center mb-12">
+                    <span class="bg-unitec-yellow text-unitec-navy font-bold text-xs uppercase px-4 py-1.5 rounded-full tracking-widest">DESAFÍO EXCEL</span>
+                    <h2 class="font-display font-bold text-3xl md:text-5xl mt-4">Juego: Une Columnas de Control</h2>
+                    <p class="text-slate-300 mt-2 text-sm md:text-base">Haz clic en un comando o cursor en la izquierda y luego en su función correspondiente en la derecha para emparejarlos.</p>
+                </div>
+
+                <!-- JUEGO INTERACTIVO DE UNE COLUMNAS -->
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10 mb-8">
+                    
+                    <!-- Columna Izquierda: Elementos -->
+                    <div class="flex flex-col gap-3" id="game-left">
+                        <h3 class="text-xs font-extrabold uppercase text-unitec-yellow tracking-wider mb-2"><i class="fa-solid fa-code"></i> COMANDO / CURSOR</h3>
+                        
+                        <div data-match="1" class="game-left-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Ctrl + G</span>
+                            <span class="text-slate-400 text-xs"><i class="fa-solid fa-keyboard"></i></span>
+                        </div>
+                        
+                        <div data-match="2" class="game-left-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Ctrl + 9</span>
+                            <span class="text-slate-400 text-xs"><i class="fa-solid fa-keyboard"></i></span>
+                        </div>
+                        
+                        <div data-match="3" class="game-left-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Cruz Negra Delgada (✛)</span>
+                            <span class="text-slate-400 text-xs font-mono font-bold">+</span>
+                        </div>
+
+                        <div data-match="4" class="game-left-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Operador Menor/Mayor (&lt;&gt;)</span>
+                            <span class="text-slate-400 text-xs font-mono font-bold">&lt;&gt;</span>
+                        </div>
+
+                        <div data-match="5" class="game-left-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Ctrl + Z</span>
+                            <span class="text-slate-400 text-xs"><i class="fa-solid fa-keyboard"></i></span>
+                        </div>
+                    </div>
+
+                    <!-- Columna Derecha: Definiciones -->
+                    <div class="flex flex-col gap-3" id="game-right">
+                        <h3 class="text-xs font-extrabold uppercase text-unitec-yellow tracking-wider mb-2"><i class="fa-solid fa-book"></i> ACCIÓN / COMPORTAMIENTO</h3>
+                        
+                        <div data-answer="3" class="game-right-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Copiar fórmulas o autocompletar</span>
+                            <span class="text-slate-500 text-xs"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+
+                        <div data-answer="1" class="game-right-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Asegura el progreso del libro</span>
+                            <span class="text-slate-500 text-xs"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+
+                        <div data-answer="5" class="game-right-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Deshacer el último error cometido</span>
+                            <span class="text-slate-500 text-xs"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+
+                        <div data-answer="2" class="game-right-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Ocultar las filas seleccionadas</span>
+                            <span class="text-slate-500 text-xs"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+
+                        <div data-answer="4" class="game-right-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold">
+                            <span>Comparación de Distinto o Diferente de</span>
+                            <span class="text-slate-500 text-xs"><i class="fa-solid fa-check-double"></i></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Mensaje de Feedback del Juego -->
+                <div class="text-center mt-6">
+                    <p id="game-feedback" class="text-lg font-bold text-unitec-yellow min-h-[28px]"></p>
+                    <button onclick="resetGame()" class="mt-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-semibold text-xs px-4 py-2 rounded-lg transition-all">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar Juego
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Canvas de Confeti Oculto para efectos especiales -->
+    <canvas id="confetti-canvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-[100]"></canvas>
+
+    <!-- Pie de Página -->
+    <footer class="bg-unitec-navy text-slate-400 py-12 px-6 border-t border-slate-800 text-center">
+        <div class="max-w-4xl mx-auto">
+            <span class="text-unitec-yellow font-bold tracking-wider text-sm">PREP@ UNITEC CAMPUS ECATEPEC</span>
+            <p class="text-xs mt-3 text-slate-500">Materia: Informática II • Diseñado para la Sesión Práctica de Laboratorio de Excel.</p>
+            <p class="text-[10px] text-slate-600 mt-6">&copy; 2026 Universidad Tecnológica de México. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- LOGICA JAVASCRIPT: JUEGO, PROGRESO Y CONTROLADORES -->
+    <script>
+        // Trackers de progreso de conceptos
+        const conceptsRead = {
+            atajo1: false,
+            atajo2: false,
+            atajo3: false,
+            cursor1: false,
+            cursor2: false,
+            cursor3: false,
+            cursor4: false,
+            cases: false
+        };
+
+        function updateProgressBar() {
+            const total = Object.keys(conceptsRead).length;
+            const read = Object.values(conceptsRead).filter(v => v === true).length;
+            const percentage = Math.round((read / total) * 100);
+            
+            document.getElementById('mainProgressBar').style.width = percentage + '%';
+            document.getElementById('progressPercentage').innerText = percentage + '%';
+        }
+
+        function markConceptRead(id) {
+            conceptsRead[id] = true;
+            const badge = document.getElementById(`badge-${id}`);
+            if (badge) {
+                badge.className = "text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full animate-pulse";
+                badge.innerHTML = '<i class="fa-solid fa-check"></i> Comprendido';
+            }
+            updateProgressBar();
+        }
+
+        // Intercambiar pestañas de aprendizaje
+        function toggleSection(section) {
+            const sectionAtajos = document.getElementById('section-atajos');
+            const sectionCursores = document.getElementById('section-cursores');
+            const btnAtajos = document.getElementById('btn-atajos');
+            const btnCursores = document.getElementById('btn-cursores');
+
+            if (section === 'atajos') {
+                sectionAtajos.classList.remove('hidden');
+                sectionCursores.classList.add('hidden');
+                btnAtajos.className = "bg-unitec-blue text-white px-5 py-2.5 rounded-xl font-semibold shadow-md shadow-unitec-blue/10 transition-all";
+                btnCursores.className = "bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-5 py-2.5 rounded-xl font-semibold transition-all";
+            } else {
+                sectionAtajos.classList.add('hidden');
+                sectionCursores.classList.remove('hidden');
+                btnCursores.className = "bg-unitec-blue text-white px-5 py-2.5 rounded-xl font-semibold shadow-md shadow-unitec-blue/10 transition-all";
+                btnAtajos.className = "bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 px-5 py-2.5 rounded-xl font-semibold transition-all";
+            }
+        }
+
+        // Lógica de validación de casos de estudio
+        function checkCase(caseNum, answerState, buttonElement) {
+            const feedback = document.getElementById(`case-feedback-${caseNum}`);
+            const buttons = buttonElement.parentNode.querySelectorAll('button');
+            
+            // Bloquear otros clicks en esta pregunta
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (answerState === 'correct') {
+                buttonElement.className = "w-full text-left p-3.5 rounded-xl border-2 border-emerald-500 bg-emerald-50 text-emerald-800 text-sm font-semibold transition-all";
+                feedback.className = "mt-4 text-sm font-bold text-emerald-600";
+                feedback.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> ¡Correcto! Sabes exactamente cómo responder con eficiencia informática.';
+                conceptsRead.cases = true;
+                updateProgressBar();
+            } else {
+                buttonElement.className = "w-full text-left p-3.5 rounded-xl border-2 border-rose-500 bg-rose-50 text-rose-800 text-sm font-semibold transition-all";
+                feedback.className = "mt-4 text-sm font-bold text-rose-600";
+                feedback.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Oops, opción incorrecta. Analiza de nuevo el comando adecuado.';
+                // Permitir reintentar después de un segundo
+                setTimeout(() => {
+                    buttons.forEach(btn => btn.disabled = false);
+                }, 1000);
+            }
+        }
+
+        // LÓGICA DEL JUEGO: UNE LAS COLUMNAS
+        let selectedLeft = null;
+        let selectedRight = null;
+        let matchedPairs = 0;
+        const totalPairs = 5;
+
+        const leftItems = document.querySelectorAll('.game-left-item');
+        const rightItems = document.querySelectorAll('.game-right-item');
+
+        leftItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (item.classList.contains('bg-emerald-500/20')) return; // Ya resuelto
+                
+                // Deseleccionar previos de la columna izquierda
+                leftItems.forEach(i => i.classList.remove('game-item-selected', 'bg-white/10'));
+                
+                selectedLeft = item;
+                item.classList.add('game-item-selected');
+                checkSelectionMatch();
+            });
+        });
+
+        rightItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (item.classList.contains('bg-emerald-500/20')) return; // Ya resuelto
+                
+                // Deseleccionar previos de la columna derecha
+                rightItems.forEach(i => i.classList.remove('game-item-selected', 'bg-white/10'));
+                
+                selectedRight = item;
+                item.classList.add('game-item-selected');
+                checkSelectionMatch();
+            });
+        });
+
+        function checkSelectionMatch() {
+            if (selectedLeft && selectedRight) {
+                const leftMatchVal = selectedLeft.getAttribute('data-match');
+                const rightAnswerVal = selectedRight.getAttribute('data-answer');
+
+                const feedback = document.getElementById('game-feedback');
+
+                if (leftMatchVal === rightAnswerVal) {
+                    // ¡Acierto! Estilo Verde
+                    selectedLeft.className = "bg-emerald-500/20 border-2 border-emerald-500/50 text-emerald-300 rounded-xl p-4 flex items-center justify-between transition-all text-sm font-semibold pointer-events-none";
+                    selectedRight.className = "bg-emerald-500/20 border-2 border-emerald-500/50 text-emerald-300 rounded-xl p-4 flex items-center justify-between transition-all text-sm font-semibold pointer-events-none";
+                    
+                    selectedLeft.querySelector('span:last-child').innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+                    selectedRight.querySelector('span:last-child').innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i>';
+
+                    feedback.className = "text-lg font-bold text-emerald-400 animate-bounce";
+                    feedback.innerHTML = '¡Excelente! Par emparejado correctamente.';
+                    
+                    matchedPairs++;
+
+                    if (matchedPairs === totalPairs) {
+                        feedback.className = "text-2xl font-extrabold text-unitec-yellow animate-pulse";
+                        feedback.innerHTML = '🎉 ¡Felicidades! Has completado el desafío de Excel a la perfección.';
+                        triggerConfetti();
+                    }
+                } else {
+                    // ¡Error! Efecto visual momentáneo de rojo
+                    const tempLeft = selectedLeft;
+                    const tempRight = selectedRight;
+
+                    tempLeft.className = "bg-rose-500/20 border-2 border-rose-500/50 text-rose-300 rounded-xl p-4 flex items-center justify-between transition-all text-sm font-semibold";
+                    tempRight.className = "bg-rose-500/20 border-2 border-rose-500/50 text-rose-300 rounded-xl p-4 flex items-center justify-between transition-all text-sm font-semibold";
+                    
+                    feedback.className = "text-lg font-bold text-rose-400";
+                    feedback.innerHTML = 'Conexión incorrecta. ¡Inténtalo de nuevo!';
+
+                    setTimeout(() => {
+                        if (!tempLeft.classList.contains('bg-emerald-500/20')) {
+                            tempLeft.className = "bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold";
+                        }
+                        if (!tempRight.classList.contains('bg-emerald-500/20')) {
+                            tempRight.className = "bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold";
+                        }
+                    }, 1000);
+                }
+
+                // Limpiar selección de variables
+                selectedLeft = null;
+                selectedRight = null;
+            }
+        }
+
+        function resetGame() {
+            matchedPairs = 0;
+            document.getElementById('game-feedback').innerHTML = '';
+            
+            leftItems.forEach(item => {
+                item.className = "game-left-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold";
+                const iconSpan = item.querySelector('span:last-child');
+                if (iconSpan) {
+                    const matchVal = item.getAttribute('data-match');
+                    if (matchVal === "1" || matchVal === "2" || matchVal === "5") {
+                        iconSpan.innerHTML = '<i class="fa-solid fa-keyboard"></i>';
+                    } else if (matchVal === "3") {
+                        iconSpan.innerText = '+';
+                    } else {
+                        iconSpan.innerText = '<>';
+                    }
+                }
+            });
+
+            rightItems.forEach(item => {
+                item.className = "game-right-item bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 rounded-xl p-4 flex items-center justify-between cursor-pointer transition-all text-sm font-semibold";
+                const checkSpan = item.querySelector('span:last-child');
+                if (checkSpan) {
+                    checkSpan.innerHTML = '<i class="fa-solid fa-check-double"></i>';
+                }
+            });
+        }
+
+        // CONFETTI NATIVO EN CANVAS (Para celebrar el éxito sin librerías pesadas)
+        function triggerConfetti() {
+            const canvas = document.getElementById("confetti-canvas");
+            const ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ["#ffd100", "#005088", "#0284c7", "#ff9100", "#10b981"];
+
+            for (let i = 0; i < 150; i++) {
+                particles.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    r: Math.random() * 6 + 4,
+                    d: Math.random() * canvas.height,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    tilt: Math.random() * 10 - 5,
+                    tiltAngleIncremental: Math.random() * 0.07 + 0.02,
+                    tiltAngle: 0
+                });
+            }
+
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.tiltAngle += p.tiltAngleIncremental;
+                    p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+                    p.x += Math.sin(p.tiltAngle);
+                    p.tilt = Math.sin(p.tiltAngle - index / 3) * 15;
+
+                    ctx.beginPath();
+                    ctx.lineWidth = p.r;
+                    ctx.strokeStyle = p.color;
+                    ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+                    ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+                    ctx.stroke();
+                });
+
+                update();
+            }
+
+            let animationFrame;
+            function update() {
+                const remaining = particles.filter(p => p.y < canvas.height);
+                if (remaining.length > 0) {
+                    particles = remaining;
+                    animationFrame = requestAnimationFrame(draw);
+                } else {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    cancelAnimationFrame(animationFrame);
+                }
+            }
+
+            draw();
+        }
+    </script>
+</body>
+</html>
