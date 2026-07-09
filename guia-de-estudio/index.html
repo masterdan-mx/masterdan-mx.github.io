@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Estudio: Excel Avanzado</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; }
+        .option-card:hover { transform: translateY(-2px); }
+        .selected { border-color: #10b981; background-color: #f0fdf4; }
+        .correct-answer { border-color: #10b981 !important; background-color: #d1fae5 !important; }
+        .wrong-answer { border-color: #ef4444 !important; background-color: #fee2e2 !important; }
+        .feedback-box { animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        .progress-bar { transition: width 0.3s ease; }
+        .review-card { transition: all 0.2s; }
+        .review-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .topic-pill { display: inline-block; padding: 2px 10px; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+    <!-- ============== FASE 1: REPASO GENERAL ============== -->
+    <div id="review-screen" class="max-w-4xl mx-auto py-10 px-4">
+        <div class="mb-8 text-center">
+            <div class="inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full mb-3">FASE 1 · REPASO</div>
+            <h1 class="text-3xl font-bold text-slate-800">Guía de Estudio · Excel Avanzado</h1>
+            <p class="text-slate-500 mt-2 max-w-2xl mx-auto">Lee cada tema antes de iniciar el simulador. Cuando estés listo, presiona el botón al final para comenzar el examen (20 preguntas).</p>
+        </div>
+
+        <!-- Tarjeta 1: Operadores y Función SI -->
+        <div class="review-card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">1</div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Expresiones y funciones lógicas</h2>
+                    <p class="text-sm text-slate-500 mb-3">Evaluar condiciones verdaderas o falsas y usar la función <code class="bg-slate-100 px-1 rounded">=SI()</code></p>
+
+                    <p class="text-sm font-semibold text-slate-700 mb-2">Operadores de comparación</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-4 text-sm">
+                        <div class="bg-slate-50 border rounded-lg p-2 text-center"><code>=</code><br><span class="text-xs text-slate-500">Igual a</span></div>
+                        <div class="bg-slate-50 border rounded-lg p-2 text-center"><code>&lt;&gt;</code><br><span class="text-xs text-slate-500">Distinto de</span></div>
+                        <div class="bg-slate-50 border rounded-lg p-2 text-center"><code>&gt;</code> / <code>&lt;</code><br><span class="text-xs text-slate-500">Mayor / Menor</span></div>
+                        <div class="bg-slate-50 border rounded-lg p-2 text-center"><code>&gt;=</code> / <code>&lt;=</code><br><span class="text-xs text-slate-500">Mayor/Menor o igual</span></div>
+                    </div>
+
+                    <p class="text-sm font-semibold text-slate-700 mb-2">Función SI (condicional)</p>
+                    <code class="block bg-slate-900 text-emerald-300 p-3 rounded-lg text-sm mb-2">=SI(condición, valor_si_verdadero, valor_si_falso)</code>
+                    <p class="text-sm text-slate-600">Ejemplo: <code class="bg-slate-100 px-1 rounded">=SI(A1&lt;B1,"MENOR","MAYOR")</code> → si A1 es menor que B1 devuelve "MENOR", si no, "MAYOR".</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 2: Funciones de fecha y hora -->
+        <div class="review-card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0">2</div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Funciones de fecha y hora</h2>
+                    <p class="text-sm text-slate-500 mb-3">Extraer componentes específicos de la fecha y hora actual.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=HOY()</code>
+                            <p class="text-xs text-slate-500 mt-1">Devuelve solo la fecha actual, sin la hora.</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=AHORA()</code>
+                            <p class="text-xs text-slate-500 mt-1">Devuelve fecha y hora actuales.</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=HORA(AHORA())</code>
+                            <p class="text-xs text-slate-500 mt-1">Devuelve únicamente la hora actual.</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=MES(AHORA())</code>
+                            <p class="text-xs text-slate-500 mt-1">Devuelve únicamente el mes actual (1-12).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 3: Unión de texto -->
+        <div class="review-card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0">3</div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Manipulación y unión de texto</h2>
+                    <p class="text-sm text-slate-500 mb-3">Concatenar celdas usando diferentes métodos.</p>
+
+                    <div class="space-y-2 text-sm">
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=A1 &amp; " " &amp; B1</code>
+                            <p class="text-xs text-slate-500 mt-1">Operador <code>&amp;</code>: une dos celdas con un espacio entre ellas.</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=CONCATENAR(A1," ",B1)</code>
+                            <p class="text-xs text-slate-500 mt-1">Une celdas con un separador (puede ser espacio o cualquier texto).</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=CONCAT(A1," ",B1)</code>
+                            <p class="text-xs text-slate-500 mt-1">Versión moderna de CONCATENAR (Excel 2019+ / Microsoft 365).</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-emerald-700 font-semibold">=UNIRCADENAS(" ", VERDADERO, A1, B1, C1)</code>
+                            <p class="text-xs text-slate-500 mt-1">Une múltiples celdas con un separador e ignora celdas vacías (VERDADERO).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 4: CONTAR.SI -->
+        <div class="review-card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0">4</div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Funciones estadísticas condicionales</h2>
+                    <p class="text-sm text-slate-500 mb-3">Aplicación y sintaxis correcta de <code class="bg-slate-100 px-1 rounded">=CONTAR.SI()</code>.</p>
+
+                    <code class="block bg-slate-900 text-emerald-300 p-3 rounded-lg text-sm mb-3">=CONTAR.SI(rango, criterio)</code>
+
+                    <p class="text-sm font-semibold text-slate-700 mb-2">Ejemplos de criterios:</p>
+                    <ul class="text-sm text-slate-600 space-y-1 list-disc list-inside">
+                        <li><code class="bg-slate-100 px-1 rounded">=CONTAR.SI(B2:B6,"&gt;=18")</code> → cuenta los mayores o iguales a 18 años.</li>
+                        <li><code class="bg-slate-100 px-1 rounded">=CONTAR.SI(B2:B6,"&lt;=18")</code> → cuenta los menores o iguales a 18.</li>
+                        <li><code class="bg-slate-100 px-1 rounded">=CONTAR.SI(B2:B6,"&gt;17")</code> → cuenta los mayores a 17 (mayores de edad).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 5: FILTRAR -->
+        <div class="review-card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold shrink-0">5</div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Función FILTRAR (visualización y análisis)</h2>
+                    <p class="text-sm text-slate-500 mb-3">Permite visualizar únicamente los datos que cumplen con un criterio específico.</p>
+                    <code class="block bg-slate-900 text-emerald-300 p-3 rounded-lg text-sm mb-2">=FILTRAR(rango, condición)</code>
+                    <p class="text-sm text-slate-600">Es una <b>función dinámica</b> de Microsoft 365: muestra solo las filas que cumplen la condición, sin alterar los datos originales.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 6: Códigos de error -->
+        <div class="review-card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-red-100 text-red-700 flex items-center justify-center font-bold shrink-0">6</div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Códigos de error comunes</h2>
+                    <p class="text-sm text-slate-500 mb-3">Identificación de fallas habituales en las fórmulas.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-red-600 font-semibold">#¿NOMBRE?</code>
+                            <p class="text-xs text-slate-500 mt-1">Excel no reconoce el texto de la fórmula (función mal escrita).</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-red-600 font-semibold">#####</code>
+                            <p class="text-xs text-slate-500 mt-1">El ancho de la columna no es suficiente para mostrar el valor.</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-red-600 font-semibold">#¡REF!</code>
+                            <p class="text-xs text-slate-500 mt-1">Una referencia de celda no es válida (celda borrada).</p>
+                        </div>
+                        <div class="bg-slate-50 border rounded-lg p-3">
+                            <code class="text-red-600 font-semibold">#¡DIV/0!</code>
+                            <p class="text-xs text-slate-500 mt-1">Se está realizando una división entre cero.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta 7: Seguridad -->
+        <div class="review-card bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-4">
+            <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0">7</div>
+                <div class="flex-1">
+                    <h2 class="text-lg font-bold text-slate-800 mb-1">Seguridad y gestión de datos</h2>
+                    <p class="text-sm text-slate-500 mb-3">Restricción de cambios en la hoja y ocultación de información.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
+                            <p class="font-semibold text-indigo-800 mb-1">Proteger la hoja</p>
+                            <p class="text-xs text-slate-600">Impide que otros usuarios agreguen, eliminen o cambien la información de las hojas.</p>
+                        </div>
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-3">
+                            <p class="font-semibold text-indigo-800 mb-1">Protección por celdas</p>
+                            <p class="text-xs text-slate-600">Permite bloquear o desbloquear celdas específicas antes de proteger la hoja.</p>
+                        </div>
+                        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-3 md:col-span-2">
+                            <p class="font-semibold text-indigo-800 mb-1">Ocultar filas o columnas</p>
+                            <p class="text-xs text-slate-600">Recomendado cuando se quiere que los usuarios se enfoquen solo en la información más importante, dejando ocultos los datos secundarios.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botón para iniciar simulador -->
+        <div class="text-center mt-8">
+            <p class="text-sm text-slate-500 mb-3">Cuando hayas repasado todos los temas, inicia el simulador:</p>
+            <button id="start-btn" class="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-lg font-bold text-lg transition-all shadow-md hover:shadow-lg">
+                Iniciar Simulador (20 preguntas) →
+            </button>
+        </div>
+    </div>
+
+    <!-- ============== FASE 2: SIMULADOR ============== -->
+    <div id="app" class="max-w-3xl mx-auto py-10 px-4 hidden">
+        <div class="mb-8 text-center">
+            <div class="inline-block bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full mb-3">FASE 2 · SIMULADOR</div>
+            <h1 class="text-3xl font-bold text-slate-800">Simulador de Examen · Excel</h1>
+            <p class="text-slate-500 mt-2">Responde cada pregunta. Necesitas <b>9 o más aciertos</b> para acceder a la guía práctica.</p>
+        </div>
+
+        <div class="mb-6">
+            <div class="flex justify-between mb-2 text-sm font-medium text-slate-600">
+                <span id="progress-text">Pregunta 1 de 20</span>
+                <span id="score-text">Aciertos: 0</span>
+            </div>
+            <div class="w-full bg-slate-200 rounded-full h-2.5">
+                <div id="progress-bar" class="bg-emerald-500 h-2.5 rounded-full progress-bar" style="width: 5%"></div>
+            </div>
+        </div>
+
+        <div id="quiz-container" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 md:p-8">
+            <div id="question-content"></div>
+
+            <div class="mt-8 flex justify-between items-center border-t pt-6">
+                <button id="next-btn" class="ml-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Siguiente Pregunta
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============== FASE 3: RESULTADOS ============== -->
+    <div id="results-container" class="hidden max-w-3xl mx-auto py-10 px-4">
+        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-8 text-center">
+            <div class="inline-block bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full mb-3">FASE 3 · RESULTADO</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">¡Examen Finalizado!</h2>
+            <div id="final-score" class="text-6xl font-black text-emerald-600 my-4">0/20</div>
+            <p id="feedback-msg" class="text-slate-600 mb-2"></p>
+            <p id="pass-status" class="text-lg font-semibold mb-6"></p>
+
+            <div id="download-section" class="hidden bg-emerald-50 border border-emerald-200 rounded-lg p-6 mb-6 text-left">
+                <h3 class="text-lg font-bold text-emerald-800 mb-2 text-center">🎉 ¡Acceso habilitado a la Guía Práctica!</h3>
+                <p class="text-sm text-slate-600 mb-4 text-center">Descarga los archivos y practica con ellos para reforzar lo aprendido.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <a href="https://myunitecedu-my.sharepoint.com/:w:/g/personal/daniel_garciag_my_unitec_edu_mx/IQDInS9VTOgtTaeHw-3CmeMEAcZjYA05Y67F7Pqt3CoTAWg?e=DaEhqk"
+                       target="_blank" rel="noopener"
+                       class="flex items-center gap-3 bg-white border-2 border-blue-200 hover:border-blue-400 p-4 rounded-lg transition-all">
+                        <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl">W</div>
+                        <div class="flex-1">
+                            <p class="font-bold text-slate-800 text-sm">Guía Práctica · Word</p>
+                            <p class="text-xs text-slate-500">Instrucciones paso a paso</p>
+                        </div>
+                    </a>
+                    <a href="https://myunitecedu-my.sharepoint.com/:x:/g/personal/daniel_garciag_my_unitec_edu_mx/IQBIttpDEZRNTKRVFws3uTGaAfmAlVbIUA8I_JhwcGHqvKc?e=JDzJ3Y"
+                       target="_blank" rel="noopener"
+                       class="flex items-center gap-3 bg-white border-2 border-emerald-200 hover:border-emerald-400 p-4 rounded-lg transition-all">
+                        <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-lg flex items-center justify-center font-bold text-xl">X</div>
+                        <div class="flex-1">
+                            <p class="font-bold text-slate-800 text-sm">Ejercicio Práctico · Excel</p>
+                            <p class="text-xs text-slate-500">Archivo para resolver</p>
+                        </div>
+                    </a>
+                </div>
+                <p class="text-xs text-slate-500 mt-3 text-center">⚠️ Inicia sesión con tu cuenta Unitec para descargar.</p>
+            </div>
+
+            <div id="fail-section" class="hidden bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                <h3 class="text-lg font-bold text-red-800 mb-2">📚 Vuelve a repasar</h3>
+                <p class="text-sm text-slate-600">No alcanzaste el mínimo de 9 aciertos. Vuelve a la sección de repaso, estudia los temas y reinicia el simulador.</p>
+            </div>
+
+            <button onclick="location.reload()" class="bg-slate-800 text-white px-8 py-3 rounded-lg font-bold hover:bg-slate-900 transition-all">
+                Reiniciar Simulador
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // ===== PREGUNTAS =====
+        const questions = [
+            // ---------- 14 de la GUÍA TEÓRICA RESUELTA ----------
+            {
+                id: 1,
+                question: "¿Cuál de las siguientes expresiones es FALSA? (Considerando la tabla: A1=5, B1=10)",
+                type: "table",
+                table: { A1: 5, B1: 10 },
+                options: ["=A1&lt;=B1", "=B1&lt;A1", "=A1&lt;B1"],
+                correct: 1
+            },
+            {
+                id: 2,
+                question: "¿Cuál de las siguientes expresiones es VERDADERA? (Considerando la tabla: A1=5, B1=10)",
+                type: "table",
+                table: { A1: 5, B1: 10 },
+                options: ["=A1&lt;&gt;B1", "=A1&gt;B1", "=B1&lt;A1"],
+                correct: 0
+            },
+            {
+                id: 3,
+                question: "¿Cuál sería el valor que nos devolvería la siguiente función lógica SI?<br><b class='text-emerald-700'>=SI(A1&lt;B1,\"MENOR\",\"MAYOR\")</b>",
+                type: "table",
+                table: { A1: 5, B1: 10 },
+                options: ["VERDADERO", "MENOR", "MAYOR"],
+                correct: 1
+            },
+            {
+                id: 4,
+                question: "¿Cuál sería el valor que nos devolvería la siguiente función lógica?<br><b class='text-emerald-700'>=SI(A1&lt;&gt;10,\"MENOR\",\"MAYOR\")</b>",
+                type: "table",
+                table: { A1: 5, B1: 10 },
+                options: ["FALSO", "MENOR", "VERDADERO"],
+                correct: 1
+            },
+            {
+                id: 5,
+                question: "¿Cuál es la función para obtener únicamente la HORA ACTUAL?",
+                options: ["=HORA(AHORA())", "=HORA()", "=HORA.SI(AHORA())"],
+                correct: 0
+            },
+            {
+                id: 6,
+                question: "¿Cuál es la función para obtener únicamente el MES?",
+                options: ["=MES()", "=MES.SI()", "=MES(AHORA())"],
+                correct: 2
+            },
+            {
+                id: 7,
+                question: "¿Cuál es la función para obtener únicamente la FECHA ACTUAL SIN LA HORA?",
+                options: ["=AHORA()", "=SIFECHA()", "=HOY()"],
+                correct: 2
+            },
+            {
+                id: 8,
+                question: "Relaciona los Operadores de Comparación con su significado:<br><b>A)</b> Mayor o igual &nbsp; <b>B)</b> Distinto de &nbsp; <b>C)</b> Menor que &nbsp; <b>D)</b> Menor o igual<br>1: &gt;= &nbsp; 2: &lt;&gt; &nbsp; 3: &lt; &nbsp; 4: &lt;=",
+                options: ["2C, 3B, 4A, 1D", "1A, 2B, 3C, 4D", "4D, 3C, 2B, 1A"],
+                correct: 1
+            },
+            {
+                id: 9,
+                question: "Relaciona las funciones con su utilidad:<br><b>A)</b> Unir textos en una sola celda &nbsp; <b>B)</b> Mostrar solo las filas que cumplen una condición &nbsp; <b>C)</b> Contar celdas que cumplen una condición<br>1: CONTAR.SI &nbsp; 2: CONCATENAR &nbsp; 3: FILTRAR",
+                options: ["1A, 2B, 3C", "1C, 2A, 3B", "1B, 2C, 3A"],
+                correct: 1
+            },
+            {
+                id: 10,
+                question: "Relaciona los Códigos de Error con su significado:<br><b>A)</b> Referencia inválida (celda borrada) &nbsp; <b>B)</b> División entre cero &nbsp; <b>C)</b> Función escrita mal &nbsp; <b>D)</b> Columna demasiado estrecha<br>1: #¿NOMBRE? &nbsp; 2: ##### &nbsp; 3: #¡REF! &nbsp; 4: #¡DIV/0!",
+                options: ["1C, 2A, 3B, 4D", "1B, 2C, 3D, 4A", "1C, 2D, 3A, 4B"],
+                correct: 2
+            },
+            {
+                id: 11,
+                question: "Si te solicitan impedir que otros usuarios agreguen, eliminen o cambien información de las hojas, ¿qué debes hacer?",
+                options: ["APLICAR LA PROTECCIÓN POR CELDAS", "OCULTAR FILAS O COLUMNAS", "PROTEGER LA HOJA"],
+                correct: 2
+            },
+            {
+                id: 12,
+                question: "Si necesitas que los usuarios se enfoquen solamente en la información más importante, ¿qué recomendarías?",
+                options: ["APLICAR LA PROTECCIÓN POR CELDAS", "OCULTAR FILAS O COLUMNAS", "PROTEGER LA HOJA"],
+                correct: 1
+            },
+            {
+                id: 13,
+                question: "¿Cómo unimos el contenido de las celdas A1 (Joel) y B1 (García) con un espacio en C1? Elige la combinación correcta:<br>1) =A1&amp;\" \"&amp;B1 &nbsp; 2) =CONCATENAR(A1,B1) &nbsp; 3) =CONCATENAR(A1,\" \",B1) &nbsp; 4) =A1+B1",
+                options: ["1 y 3", "1 y 4", "2 y 3"],
+                correct: 0
+            },
+            {
+                id: 14,
+                question: "Observa la siguiente tabla: A1=\"La\", B1=\"informacion\", C1=\"es\", D1=\"poder\". El objetivo es obtener en G1 el texto <b>\"La informacion es poder\"</b> uniendo las 4 celdas con espacios. ¿Qué fórmula cumple ese objetivo?",
+                type: "table",
+                table: { A1: "La", B1: "informacion", C1: "es", D1: "poder", G1: "La informacion es poder" },
+                options: ["=UNIRCADENAS(\" \", TRUE, A1, B1, C1, D1)", "=UNIRCADENAS(\" \", TRUE, A1, B1, C1)", "=A1 & \" \" & B1 & \" \" & C1"],
+                correct: 0
+            },
+
+            // ---------- 6 NUEVAS del EXAMEN TIPO A ----------
+            {
+                id: 15,
+                question: "Si la celda A1 contiene el número 10, ¿qué valor devuelve la siguiente función?<br><b class='text-emerald-700'>=SI(A1&lt;&gt;10,\"DIFERENTE\",\"IGUAL\")</b>",
+                type: "table",
+                table: { A1: 10, B1: 10 },
+                options: ["FALSO", "IGUAL", "DIFERENTE"],
+                correct: 1
+            },
+            {
+                id: 16,
+                question: "Observa la siguiente tabla. ¿Qué función SI muestra <b>\"Aprobado\"</b> cuando la calificación es ≥6 y <b>\"Reprobado\"</b> cuando es menor a 6?",
+                type: "table",
+                table: { A1: "Nombre", B1: "Calificación", C1: "Estado", A2: "Ana", B2: 8, C2: "Aprobado", A3: "Benito", B3: 5, C3: "Reprobado", A4: "Carlos", B4: 6, C4: "Aprobado", A5: "Diana", B5: 3, C5: "Reprobado", A6: "Ericka", B6: 10, C6: "Aprobado" },
+                options: ["=SI(B2&gt;=6,\"Aprobado\",\"Reprobado\")", "=SI(B2=5,\"Aprobado\",\"Reprobado\")", "=SI(B2=6,\"Reprobado\",\"Aprobado\")"],
+                correct: 0
+            },
+            {
+                id: 17,
+                question: "¿Cuál es el elemento más básico de Excel donde se introducen los datos?",
+                options: ["Hoja de cálculo", "El libro de trabajo", "La celda"],
+                correct: 2
+            },
+            {
+                id: 18,
+                question: "Observa la tabla de calificaciones con Alumno, Examen 1 (B) y Examen 2 (C). ¿Qué fórmula usarías para saber si el Examen 2 de Carlos es <b>menor que</b> el Examen 1?",
+                type: "table",
+                table: { A1: "Alumno", B1: "Examen 1", C1: "Examen 2", A2: "Carlos", B2: 7, C2: 8, A3: "Juan", B3: 5, C3: 5, A4: "Cecilia", B4: 8, C4: 6, A5: "Elena", B5: 6, C5: 9, A6: "Ramon", B6: 7, C6: 8 },
+                options: ["=SI(C2&lt;B2,\"Sí\",\"No\")", "=SI(C2&gt;B2,\"Sí\",\"No\")", "=SI(C2=B2,\"No\",\"Sí\")"],
+                correct: 0
+            },
+            {
+                id: 19,
+                question: "Con la misma tabla de calificaciones (Alumno, Examen 1, Examen 2). ¿Qué fórmula usarías para saber si el Examen 2 de Juan es <b>igual que</b> el Examen 1?",
+                type: "table",
+                table: { A1: "Alumno", B1: "Examen 1", C1: "Examen 2", A2: "Carlos", B2: 7, C2: 8, A3: "Juan", B3: 5, C3: 5, A4: "Cecilia", B4: 8, C4: 6, A5: "Elena", B5: 6, C5: 9, A6: "Ramon", B6: 7, C6: 8 },
+                options: ["=SI(C3&gt;B3,\"Sí\",\"No\")", "=SI(C3=B3,\"Sí\",\"No\")", "=SI(C3&lt;B3,\"No\",\"Sí\")"],
+                correct: 1
+            },
+            {
+                id: 20,
+                question: "Para crear un gráfico de columnas en Excel con los datos de las celdas A1:A2 y C1:C2 (sin incluir la columna B), ¿qué rango(s) debes seleccionar?",
+                options: ["A1:A2 , C1:C2", "A1:C2 completo", "A1:A3 , C1:C3"],
+                correct: 0
+            }
+        ];
+
+        // ===== EXPLICACIONES =====
+        const explanations = {
+            1: "Con A1=5 y B1=10: A1<=B1 es VERDADERO (5<=10), A1<B1 es VERDADERO (5<10) y B1<A1 es FALSO (10<5). La FALSA es =B1&lt;A1.",
+            2: "Con A1=5 y B1=10: A1<>B1 es VERDADERO (5≠10), A1>B1 es FALSO (5>10) y B1<A1 es FALSO (10<5). La VERDADERA es =A1&lt;&gt;B1.",
+            3: "Como A1 (5) < B1 (10), la condición es verdadera, por lo que la función SI devuelve el primer valor: \"MENOR\".",
+            4: "Como A1 (5) <> 10 es VERDADERO, la función SI devuelve el primer valor: \"MENOR\".",
+            5: "Para obtener solo la hora de la fecha/hora actual se usa =HORA(AHORA()). =HORA() sola no devuelve nada y =HORA.SI no existe.",
+            6: "=MES() y =MES.SI() no existen. La forma correcta de obtener el mes actual es =MES(AHORA()).",
+            7: "=HOY() devuelve únicamente la fecha actual sin la hora. =AHORA() incluye la hora y =SIFECHA() calcula diferencias entre fechas.",
+            8: "1(>=)=A, 2(<>)=B, 3(<)=C, 4(<=)=D. La combinación correcta es 1A, 2B, 3C, 4D.",
+            9: "1:CONTAR.SI cuenta celdas que cumplen una condición (C); 2:CONCATENAR une textos (A); 3:FILTRAR muestra filas según condición (B). Correcto: 1C, 2A, 3B.",
+            10: "1:#¿NOMBRE?=función mal escrita (C); 2:#####=columna estrecha (D); 3:#¡REF!=referencia inválida (A); 4:#¡DIV/0!=división entre cero (B). Correcto: 1C, 2D, 3A, 4B.",
+            11: "Para impedir que otros usuarios modifiquen el contenido de las hojas, se debe PROTEGER LA HOJA.",
+            12: "Para que los usuarios se enfoquen en la información importante, se recomienda OCULTAR FILAS O COLUMNAS con datos secundarios.",
+            13: "1) =A1&\" \"&B1 une con espacio usando el operador &. 3) =CONCATENAR(A1,\" \",B1) une con espacio usando la función. La 2) no agrega espacio y la 4) no concatena texto. Correcto: 1 y 3.",
+            14: "Para unir 4 celdas (A1=\"La\", B1=\"informacion\", C1=\"es\", D1=\"poder\") con un espacio entre ellas y obtener \"La informacion es poder\" en G1, la fórmula moderna correcta es =UNIRCADENAS(\" \", TRUE, A1, B1, C1, D1). La opción con solo 3 celdas dejaría fuera \"poder\" y la del operador & solo uniría 3 valores sin D1.",
+            15: "Como A1 (10) <> 10 es FALSO, la función SI devuelve el segundo valor: \"IGUAL\".",
+            16: "La función correcta es =SI(B2>=6,\"Aprobado\",\"Reprobado\"): si la calificación es 6 o más muestra \"Aprobado\", si no, \"Reprobado\". La 2) solo aprueba exactamente con 5 (al revés) y la 3) invierte los valores.",
+            17: "La celda es el elemento más básico de Excel: la intersección entre una fila y una columna donde se introducen los datos.",
+            18: "Para saber si el Examen 2 (C2) es menor que el Examen 1 (B2) la fórmula correcta es =SI(C2&lt;B2,\"Sí\",\"No\"). En la tabla, Carlos tiene Examen 2=8 y Examen 1=7, por lo que la condición es FALSA y devuelve \"No\".",
+            19: "Para comparar si dos valores son iguales se usa =SI(C3=B3,\"Sí\",\"No\"). Juan tiene Examen 2=5 y Examen 1=5, por lo que la condición es VERDADERA y devuelve \"Sí\".",
+            20: "Para crear un gráfico con datos de columnas no contiguas se seleccionan los rangos separados por coma: A1:A2 y C1:C2."
+        };
+
+        // ===== ESTADO =====
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedOption = null;
+        let answered = false;
+
+        const questionContent = document.getElementById('question-content');
+        const nextBtn = document.getElementById('next-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const scoreText = document.getElementById('score-text');
+
+        // ===== FLUJO =====
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.getElementById('review-screen').classList.add('hidden');
+            document.getElementById('app').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            loadQuestion();
+        });
+
+        // ===== LÓGICA =====
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            selectedOption = null;
+            answered = false;
+            nextBtn.disabled = true;
+            nextBtn.innerText = currentQuestion === questions.length - 1 ? "Ver resultados" : "Entendido, continuar";
+
+            let html = `<h2 class="text-xl font-bold text-slate-800 mb-6">${q.question}</h2>`;
+
+            if (q.type === 'table') {
+                // Tabla genérica: detecta si las celdas son strings o números y los formatea
+                const cols = Object.keys(q.table).filter(k => /^[A-Z]1$/.test(k));
+                const rows = Math.max(...Object.keys(q.table).map(k => parseInt(k.match(/\d+/)[0])));
+                const headerCols = cols.map(c => c[0]);
+
+                // Si la tabla tiene "huecos" en columnas (ej. A,B,C,D,G sin E,F),
+                // los representamos con <th> vacíos para mantener el ancho visual.
+                const fullAlphabet = ['A','B','C','D','E','F','G','H','I','J'];
+                const maxColIdx = Math.max(...cols.map(c => fullAlphabet.indexOf(c[0])));
+                const allHeaderCols = fullAlphabet.slice(0, maxColIdx + 1);
+
+                html += `
+                    <div class="mb-6 overflow-hidden rounded-lg border border-slate-200 mx-auto" style="max-width: 560px;">
+                        <table class="w-full text-sm text-center">
+                            <thead class="bg-yellow-100">
+                                <tr>
+                                    <th class="border px-2 py-1"></th>
+                                    ${allHeaderCols.map(c => `<th class="border px-2 py-1">${c}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                for (let r = 1; r <= rows; r++) {
+                    html += `<tr><td class="border bg-slate-50 font-bold px-2">${r}</td>`;
+                    for (const c of allHeaderCols) {
+                        const key = c + r;
+                        const v = q.table[key] !== undefined ? q.table[key] : '';
+                        // Resalta la celda objetivo (donde va el resultado)
+                        const isTarget = typeof v === 'string' && v.includes(' ') && r === 1 && cols.includes('G' + r);
+                        html += `<td class="border px-2 py-2 ${isTarget ? 'bg-emerald-50 font-semibold' : ''}">${v}</td>`;
+                    }
+                    html += `</tr>`;
+                }
+                html += `</tbody></table></div>`;
+            }
+
+            html += `<div class="space-y-3" id="options-container">`;
+            q.options.forEach((opt, index) => {
+                html += `
+                    <div onclick="selectOption(${index})" id="opt-${index}" class="option-card cursor-pointer p-4 border-2 border-slate-200 rounded-xl transition-all hover:border-emerald-300">
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center mr-4 shrink-0">
+                                <div class="dot w-3 h-3 rounded-full bg-emerald-500 hidden"></div>
+                            </div>
+                            <span class="text-slate-700 font-medium">${opt}</span>
+                        </div>
+                    </div>
+                `;
+            });
+            html += `</div>`;
+            html += `<div id="feedback-container"></div>`;
+
+            questionContent.innerHTML = html;
+            updateProgress();
+        }
+
+        window.selectOption = function(index) {
+            if (answered) return;
+            answered = true;
+            selectedOption = index;
+            const q = questions[currentQuestion];
+            const correctIndex = q.correct;
+            const isCorrect = index === correctIndex;
+
+            if (isCorrect) score++;
+            updateProgress();
+
+            document.querySelectorAll('.option-card').forEach((el, i) => {
+                el.classList.remove('selected', 'border-emerald-500');
+                el.onclick = null;
+                el.style.cursor = 'default';
+                el.querySelector('.dot').classList.add('hidden');
+                if (i === correctIndex) {
+                    el.classList.add('correct-answer');
+                    el.querySelector('.dot').classList.remove('hidden');
+                }
+                if (i === index && !isCorrect) {
+                    el.classList.add('wrong-answer');
+                }
+            });
+
+            const fb = document.getElementById('feedback-container');
+            if (isCorrect) {
+                fb.innerHTML = `
+                    <div class="feedback-box mt-5 p-4 rounded-lg border border-emerald-300 bg-emerald-50 text-emerald-800">
+                        <div class="font-bold mb-1">¡Correcto! 🎉</div>
+                        <div class="text-sm">${explanations[q.id] || ''}</div>
+                    </div>
+                `;
+            } else {
+                fb.innerHTML = `
+                    <div class="feedback-box mt-5 p-4 rounded-lg border border-red-300 bg-red-50 text-red-800">
+                        <div class="font-bold mb-1">❌ Incorrecto. La respuesta correcta es:</div>
+                        <div class="text-sm font-semibold mb-2">${q.options[correctIndex]}</div>
+                        <div class="text-sm">${explanations[q.id] || ''}</div>
+                    </div>
+                `;
+            }
+
+            nextBtn.disabled = false;
+        };
+
+        function updateProgress() {
+            const percent = ((currentQuestion + 1) / questions.length) * 100;
+            progressBar.style.width = `${percent}%`;
+            progressText.innerText = `Pregunta ${currentQuestion + 1} de ${questions.length}`;
+            scoreText.innerText = `Aciertos: ${score}`;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            if (!answered) return;
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        function showResults() {
+            document.getElementById('app').classList.add('hidden');
+            document.getElementById('results-container').classList.remove('hidden');
+            document.getElementById('final-score').innerText = `${score} / ${questions.length}`;
+
+            const ratio = score / questions.length;
+            const passStatus = document.getElementById('pass-status');
+            const downloadSection = document.getElementById('download-section');
+            const failSection = document.getElementById('fail-section');
+            const feedbackMsg = document.getElementById('feedback-msg');
+
+            if (score >= 9) {
+                // Aprobado
+                let msg = "";
+                if (ratio === 1) msg = "¡Excelente! Eres un experto en Excel. 🏆";
+                else if (ratio >= 0.7) msg = "¡Muy bien! Demuestras un gran dominio de las herramientas. 👏";
+                else msg = "¡Aprobado! Tienes los conocimientos mínimos para continuar. ✅";
+                feedbackMsg.innerText = msg;
+                passStatus.innerHTML = "<span class='text-emerald-600'>APROBADO</span> — Accediste a la guía práctica.";
+                passStatus.className = "text-lg font-semibold mb-6 text-emerald-700";
+                downloadSection.classList.remove('hidden');
+                failSection.classList.add('hidden');
+            } else {
+                // Reprobado
+                feedbackMsg.innerText = `Obtuviste ${score} aciertos. Necesitas al menos 9 para acceder a la guía práctica.`;
+                passStatus.innerHTML = "<span class='text-red-600'>NO APROBADO</span> — Debes repetir el examen.";
+                passStatus.className = "text-lg font-semibold mb-6 text-red-700";
+                downloadSection.classList.add('hidden');
+                failSection.classList.remove('hidden');
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
