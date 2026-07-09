@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Excel Pac-Man Arcade</title>
+    <style>
+        body { font-family: 'Courier New', monospace; background-color: #050505; color: #fff; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        #canvas-container { position: relative; }
+        canvas { background-color: #000; border: 4px solid #0022ff; display: block; box-shadow: 0 0 20px #0022ff; }
+        .modal { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(10, 10, 25, 0.95); border: 3px solid #ffea00; padding: 20px; border-radius: 8px; width: 350px; text-align: center; box-shadow: 0 0 25px #ffea00; color: #fff; }
+        table { margin: 10px auto; border-collapse: collapse; background: #fff; color: #000; }
+        td, th { border: 1px solid #ccc; padding: 6px; font-size: 14px; }
+        th { background: #e0e0e0; }
+        input { width: 80%; padding: 8px; font-size: 16px; margin-top: 10px; text-align: center; background: #222; color: #fff; border: 1px solid #ffea00; }
+        button { background: #ffea00; color: black; border: none; padding: 8px 15px; margin-top: 10px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .ui-board { display: flex; gap: 40px; font-size: 20px; font-weight: bold; color: #ffea00; margin-bottom: 10px; }
+        #game-over-screen { display: none; color: #FF1744; text-align: center; margin-top: 20px; }
+        #win-screen { display: none; color: #00E676; text-align: center; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<h1>Excel Pac-Man: Arcade Edition 🕹️</h1>
+<p>Controles: <b>Flechas del Teclado</b> o <b>WASD</b>. Evita a los fantasmas y resuelve los Checkpoints.</p>
+
+<div class="ui-board">
+    <div>Puntos: <span id="score-val">0</span> / 31</div>
+    <div>Vidas: <span id="lives-val">3</span> ❤️</div>
+</div>
+
+<div id="canvas-container">
+    <canvas id="gameCanvas" width="560" height="440"></canvas>
+
+    <div id="puzzleModal" class="modal">
+        <h3 id="puzzleTitle" style="color: #ffea00;">📍 CHECKPOINT ACTIVADO</h3>
+        <p id="puzzleDesc"></p>
+        <div id="puzzleTable"></div>
+        <input type="text" id="formulaInput" placeholder="Ej: =A1+B1">
+        <br>
+        <button onclick="evaluateFormula()">Validar Fórmula</button>
+        <p id="feedback" style="margin-top:10px; font-weight:bold;"></p>
+    </div>
+</div>
+
+<h2 id="win-screen">🏆 ¡VICTORIA! Despejaste el laberinto y dominaste Excel.</h2>
+<h2 id="game-over-screen">💀 GAME OVER. Inténtalo de nuevo recargando la página.</h2>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const tileSize = 40;
+
+// Configuración del jugador
+const player = { x: 60, y: 60, size: 20, speed: 3, score: 0, lives: 3, angle: 0, mouthSpeed: 0.05, mouthMax: 0.2, mouthDir: 1 };
+
+// Teclas
+const keys = {};
+window.addEventListener('keydown', e => keys[e.key.toLowerCase()] = true);
+window.addEventListener('keyup', e => keys[e.key.toLowerCase()] = false);
+
+// Mapa
+const map = [
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,0,0,0,0,0,1,0,0,0,0,0,0,1],
+    [1,0,1,1,1,0,1,0,1,1,1,1,0,1],
+    [1,0,1,0,0,0,0,0,0,0,0,1,0,1],
+    [1,0,1,0,1,1,0,1,1,1,0,1,0,1],
+    [1,0,0,0,1,0,0,0,0,1,0,0,0,1],
+    [1,0,1,0,1,1,1,1,0,1,1,1,0,1],
+    [1,0,0,0,0,0,1,0,0,0,0,1,0,1],
+    [1,0,1,1,1,0,1,0,1,1,0,1,0,1],
+    [1,0,0,0,0,0,0,0,0,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1]
+];
+
+// Generar monedas
+const coins = [];
+for(let r=0; r<map.length; r++){
+    for(let c=0; c<map[r].length; c++){
+        if(map[r][c] === 0) coins.push({ x: c * tileSize + 20, y: r * tileSize + 20, active: true });
+    }
+}
+
+// Configuración de los Enemigos
+const ghosts = [
+    { x: 500, y: 60, size: 22, speed: 1.5, color: '#FF0000', dirX: -1, dirY: 0 },
+    { x: 60, y: 380, size: 22, speed: 1.5, color: '#FFB8FF', dirX: 1, dirY: 0 },
+    { x: 500, y: 380, size: 22, speed: 1.5, color: '#00FFFF', dirX: 0, dirY: -1 }
+];
+
+// Checkpoints (Corregido el último checkpoint para que no aparezca en la pared)
+const checkpoints = [
+    { x: 180, y: 60, active: true, text: "SUMA: Une los bloques sumando las celdas A1 y A2.", table: "<table><tr><th></th><th>A</th></tr><tr><th>1</th><td>120</td></tr><tr><th>2</th><td>180</td></tr></table>", answers: ["=A1+A2", "=SUMA(A1:A2)", "=A2+A1"] },
+    { x: 420, y: 140, active: true, text: "RESTA: Resta los gastos (B2) del presupuesto inicial (B1).", table: "<table><tr><th></th><th>B</th></tr><tr><th>1</th><td>1500</td></tr><tr><th>2</th><td>450</td></tr></table>", answers: ["=B1-B2"] },
+    { x: 60, y: 220, active: true, text: "MULTIPLICACIÓN: Calcula el total si tienes 8 cajas (C1) con 5 pociones cada una (C2).", table: "<table><tr><th></th><th>C</th></tr><tr><th>1</th><td>8</td></tr><tr><th>2</th><td>5</td></tr></table>", answers: ["=C1*C2", "=C2*C1"] },
+    { x: 500, y: 300, active: true, text: "PORCENTAJE: Obtén el 16% de IVA sobre el costo almacenado en D1.", table: "<table><tr><th></th><th>D</th></tr><tr><th>1</th><td>300</td></tr></table>", answers: ["=D1*16%", "=D1*0.16"] }
+];
+
+let activeCheckpoint = null;
+let gamePaused = false;
+
+function checkCollision(x, y, size) {
+    const radius = size / 2;
+    const corners = [
+        { x: x - radius, y: y - radius },
+        { x: x + radius - 1, y: y - radius },
+        { x: x - radius, y: y + radius - 1 },
+        { x: x + radius - 1, y: y + radius - 1 }
+    ];
+    for (let corner of corners) {
+        const c = Math.floor(corner.x / tileSize);
+        const r = Math.floor(corner.y / tileSize);
+        if (map[r] && map[r][c] === 1) return true;
+    }
+    return false;
+}
+
+function update() {
+    if (gamePaused) return;
+
+    let nextX = player.x;
+    let nextY = player.y;
+
+    if (keys['arrowup'] || keys['w']) { nextY -= player.speed; player.angle = 1.5 * Math.PI; }
+    if (keys['arrowdown'] || keys['s']) { nextY += player.speed; player.angle = 0.5 * Math.PI; }
+    if (keys['arrowleft'] || keys['a']) { nextX -= player.speed; player.angle = Math.PI; }
+    if (keys['arrowright'] || keys['d']) { nextX += player.speed; player.angle = 0; }
+
+    if (!checkCollision(nextX, player.y, player.size)) player.x = nextX;
+    if (!checkCollision(player.x, nextY, player.size)) player.y = nextY;
+
+    player.angle += player.mouthSpeed * player.mouthDir;
+    if (player.angle > player.mouthMax || player.angle < 0) player.mouthDir *= -1;
+
+    ghosts.forEach(g => {
+        let gNextX = g.x + g.dirX * g.speed;
+        let gNextY = g.y + g.dirY * g.speed;
+
+        if (checkCollision(gNextX, gNextY, g.size)) {
+            const dirs = [{x:1, y:0}, {x:-1, y:0}, {x:0, y:1}, {x:0, y:-1}];
+            const validDirs = dirs.filter(d => !checkCollision(g.x + d.x * g.speed, g.y + d.y * g.speed, g.size));
+            if (validDirs.length > 0) {
+                const chosen = validDirs[Math.floor(Math.random() * validDirs.length)];
+                g.dirX = chosen.x;
+                g.dirY = chosen.y;
+            }
+        } else {
+            g.x = gNextX;
+            g.y = gNextY;
+        }
+
+        if (Math.hypot(player.x - g.x, player.y - g.y) < 18) {
+            player.lives--;
+            document.getElementById('lives-val').innerText = player.lives;
+            if (player.lives <= 0) {
+                document.getElementById('game-over-screen').style.display = 'block';
+                gamePaused = true;
+            } else {
+                player.x = 60;
+                player.y = 60;
+            }
+        }
+    });
+
+    coins.forEach(coin => {
+        if (coin.active && Math.hypot(player.x - coin.x, player.y - coin.y) < 16) {
+            coin.active = false;
+            player.score++;
+            document.getElementById('score-val').innerText = player.score;
+        }
+    });
+
+    checkpoints.forEach(cp => {
+        if (cp.active && Math.hypot(player.x - cp.x, player.y - cp.y) < 16) {
+            triggerCheckpoint(cp);
+        }
+    });
+
+    if (checkpoints.every(cp => !cp.active) && player.score >= 30) {
+        document.getElementById('win-screen').style.display = 'block';
+        gamePaused = true;
+    }
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    for (let r = 0; r < map.length; r++) {
+        for (let c = 0; c < map[r].length; c++) {
+            if (map[r][c] === 1) {
+                ctx.fillStyle = '#0000bb';
+                ctx.fillRect(c * tileSize, r * tileSize, tileSize, tileSize);
+            }
+        }
+    }
+
+    ctx.fillStyle = '#ffb8ae';
+    coins.forEach(coin => {
+        if (coin.active) {
+            ctx.beginPath();
+            ctx.arc(coin.x, coin.y, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    });
+
+    checkpoints.forEach(cp => {
+        if (cp.active) {
+            ctx.fillStyle = '#ffea00';
+            ctx.beginPath();
+            ctx.arc(cp.x, cp.y, 10, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    });
+
+    ghosts.forEach(g => {
+        ctx.fillStyle = g.color;
+        ctx.beginPath();
+        ctx.arc(g.x, g.y - 2, g.size / 2, Math.PI, 0, false);
+        ctx.lineTo(g.x + g.size / 2, g.y + g.size / 2);
+        ctx.lineTo(g.x - g.size / 2, g.y + g.size / 2);
+        ctx.fill();
+        ctx.fillStyle = '#FFF';
+        ctx.beginPath(); ctx.arc(g.x - 4, g.y - 2, 3, 0, Math.PI * 2); ctx.arc(g.x + 4, g.y - 2, 3, 0, Math.PI * 2); ctx.fill();
+    });
+
+    ctx.fillStyle = '#ffff00';
+    ctx.beginPath();
+    let openValue = Math.sin(Date.now() * 0.01) * 0.2 + 0.2;
+    ctx.arc(player.x, player.y, player.size / 2, player.angle + openValue, player.angle + (2 * Math.PI) - openValue);
+    ctx.lineTo(player.x, player.y);
+    ctx.fill();
+}
+
+function triggerCheckpoint(cp) {
+    gamePaused = true;
+    activeCheckpoint = cp;
+    document.getElementById('puzzleDesc').innerText = cp.text;
+    document.getElementById('puzzleTable').innerHTML = cp.table;
+    document.getElementById('formulaInput').value = "";
+    document.getElementById('feedback').innerText = "";
+    document.getElementById('puzzleModal').style.display = 'block';
+    document.getElementById('formulaInput').focus();
+}
+
+function evaluateFormula() {
+    const input = document.getElementById('formulaInput').value.toUpperCase().replace(/\s/g, '');
+    
+    if (activeCheckpoint.answers.includes(input)) {
+        document.getElementById('feedback').style.color = '#00E676';
+        document.getElementById('feedback').innerText = "✅ ¡CORRECTO! Desbloqueado.";
+        setTimeout(() => {
+            activeCheckpoint.active = false;
+            document.getElementById('puzzleModal').style.display = 'none';
+            gamePaused = false;
+            activeCheckpoint = null;
+        }, 1200);
+    } else {
+        document.getElementById('feedback').style.color = '#FF1744';
+        document.getElementById('feedback').innerText = "❌ Fórmula incorrecta.";
+    }
+}
+
+function loop() {
+    update();
+    draw();
+    requestAnimationFrame(loop);
+}
+
+loop();
+</script>
+</body>
+</html>
