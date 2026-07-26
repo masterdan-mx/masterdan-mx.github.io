@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ingeniería de Prompts y Redes Neuronales: De la Reconocimiento Visual a la Generación de Lenguaje. Lección educativa y Framework ROCA.">
+  <title>Ingeniería de Prompts y Redes Neuronales</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <main class="container">
+
+    <!-- ================= PAGE 1 ================= -->
+
+    <!-- Header Section -->
+    <header class="doc-header">
+      <hr class="divider">
+      <h1>Ingeniería de Prompts y Redes Neuronales:<br>De la Reconocimiento Visual a la Generación de Lenguaje</h1>
+      <hr class="divider">
+    </header>
+
+    <!-- Top Cards (Intro + Objetivo) -->
+    <section class="grid-2" aria-label="Introducción y Objetivo">
+      <article class="card card-green">
+        <h2 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem;">Introducción:</h2>
+        <p>En la sesión anterior exploramos cómo interactúan los chatbots y los agentes. Hoy daremos un paso más allá: entenderemos qué pasa detrás del telón cuando una máquina "aprende" a interpretar nuestros dibujos o textos y cómo debemos estructurar nuestras órdenes para obtener resultados exactos sin margen de error.</p>
+      </article>
+
+      <article class="card card-green">
+        <p><strong>Objetivo de la clase:</strong> Comprender la lógica tras las redes neuronales y dominar el diseño de instrucciones estructuradas mediante el Framework ROCA para la generación efectiva de texto y conceptos complejos.</p>
+      </article>
+    </section>
+
+    <!-- Actividad Quickdraw Card -->
+    <section class="card card-pink" aria-label="Actividad de Inicio">
+      <div class="quickdraw-header-row">
+        <h2>Actividad de Inicio: El Reto "Quick, Draw!" vs. IA</h2>
+        <a href="https://quickdraw.withgoogle.com/" target="_blank" rel="noopener noreferrer" class="btn" id="btn-quickdraw">Quickdraw</a>
+      </div>
+
+      <ol>
+        <li><strong>Indicación:</strong> Ingresa desde su computadora o celular a quickdraw.withgoogle.com</li>
+        <li><strong>Dinámica:</strong> Tienen 6 tramos de 20 segundos para dibujar lo que la red neuronal les pida en pantalla.</li>
+        <li><strong>Preguntas a responder:</strong> En su cuaderno, anotarán las siguientes preguntas y responderán
+          <ul>
+            <li>¿En qué segundos la red neuronal adivinó su garabato?</li>
+            <li>¿Por qué creen que la IA adivina el dibujo antes de que esté terminado?</li>
+          </ul>
+        </li>
+      </ol>
+
+      <p class="pink-footer">Esto demuestra visualmente cómo funciona el entrenamiento de una red neuronal antes de entrar de lleno a los conceptos teóricos y al Framework ROCA.</p>
+    </section>
+
+    <!-- ================= PAGE 2 ================= -->
+
+    <!-- ¿Para qué sirve realmente? Card -->
+    <section class="card card-pink" aria-label="Propósito científico de Quickdraw">
+      <h2>¿Para qué sirve realmente?</h2>
+      <p>Aunque por fuera parece solo un juego de "Pictionary" rápido, tiene un propósito científico muy claro:</p>
+      <ol>
+        <li><strong>Entrenar inteligencia artificial:</strong> Cada trazado que realiza un usuario enseña a las redes neuronales de reconocimiento visual cómo los humanos representamos ideas mediante dibujos sencillos.</li>
+        <li><strong>Crear una base de datos pública:</strong> Google recopila estos garabatos para construir el conjunto de datos de dibujos más grande del mundo. Esta información se comparte públicamente para ayudar a investigadores a desarrollar mejores tecnologías de reconocimiento de patrones e imágenes.</li>
+        <li><strong>Divulgación educativa:</strong> Sirve para mostrar a cualquier persona de forma interactiva y entretenida cómo aprende el <strong>aprendizaje automático</strong> a partir de la experiencia.</li>
+      </ol>
+    </section>
+
+    <!-- Framework ROCA Section -->
+    <section aria-label="Framework ROCA">
+      <h2 class="section-heading">Ingeniería de Prompts – Framework ROCA</h2>
+
+      <article class="card card-gray" style="margin-top: 1.25rem;">
+        <p style="margin-bottom: 1rem;"><strong>Objetivo:</strong> Pasar de instrucciones vagas a resultados precisos usando el <strong>Framework ROCA</strong>.</p>
+        <p style="margin-bottom: 1rem;"><strong>La Regla de Oro:</strong> <em>"Basura entra, basura sale"</em>. La calidad del resultado depende del prompt.</p>
+        <p><strong>Pilares ROCA:</strong></p>
+        <ul>
+          <li><strong>R (Rol):</strong> Asigna una identidad a la IA (Ej. <em>"Actúa como un experto..."</em>).</li>
+          <li><strong>O (Objetivo):</strong> Define claramente la meta sin rodeos.</li>
+          <li><strong>C (Contexto):</strong> Otorga los antecedentes necesarios.</li>
+          <li><strong>A (Atributos):</strong> Establece el formato, tono, longitud o límites.</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Bottom Page 2 Grid -->
+    <section class="grid-2" aria-label="Definición de Prompt y Descarga">
+      <article class="card card-gray">
+        <p>Un prompt es el conjunto de instrucciones que le damos a una IA para obtener un resultado. Si el prompt es vago, la respuesta será mediocre.</p>
+      </article>
+
+      <article class="card card-gray flex-center-card">
+        <p style="font-weight: 500; font-size: 1.05rem;">Descarga la siguiente presentación</p>
+        <a href="https://myunitecedu-my.sharepoint.com/:p:/g/personal/daniel_garciag_my_unitec_edu_mx/IQAfq2l8LBxiSbP7-H6_RniuAe7rS0Fg2EndE7LL_XJNhtA?e=j6c6xl" target="_blank" rel="noopener noreferrer" class="btn" id="btn-descargar">Descargar</a>
+      </article>
+    </section>
+
+    <!-- ================= PAGE 3 ================= -->
+
+    <!-- Teacher Questions & ROCA Example -->
+    <section class="grid-2" aria-label="Preguntas e Infografía y Desglose ROCA">
+      <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <div class="card-teacher-title" id="teacher-title-card">Preguntas del profesor</div>
+        <div class="img-wrapper">
+          <img src="assets/infografia_prompts.png" alt="Domina la Inteligencia Artificial: Guía para Prompts Perfectos" id="img-infografia">
+        </div>
+      </div>
+
+      <article class="card card-gray" style="display: flex; flex-direction: column; justify-content: center;">
+        <p style="font-size: 1.1rem; font-weight: 500; margin-bottom: 1.25rem; text-align: center;">Recuerdas el prompt de la clase pasada. Esta basada en el framework ROCA.</p>
+        <p style="font-size: 1.05rem; margin-bottom: 1rem; text-align: center;">El desglose queda así:</p>
+        <ul>
+          <li><strong>R (Rol):</strong> "Actúa como un programador experto en desarrollo web."</li>
+          <li><strong>O (Objetivo):</strong> "Genera el código completo en un solo archivo HTML (con CSS y JavaScript integrados) para un juego clásico de Pong."</li>
+          <li><strong>C (Contexto):</strong> "Requisitos: 2 raquetas (jugador vs computadora), una pelota que rebote en los bordes y en las raquetas, marcador de puntos en pantalla y controles con las teclas Flecha Arriba y Flecha Abajo."</li>
+          <li><strong>A (Atributos):</strong> "Incluye instrucciones para guardar el archivo como pong.html y abrirlo en el navegador."</li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- Nano Banana & IA Image Heading Grid -->
+    <section class="grid-2" aria-label="Herramientas de IA para Imágenes">
+      <div class="img-wrapper">
+        <img src="assets/nano_banana.png" alt="Nano Banana Pro" id="img-banana">
+      </div>
+
+      <article class="card card-black">
+        <h3>Herramientas de la red con IA para generar imágenes y palabras</h3>
+      </article>
+    </section>
+
+    <!-- Step by step Gemini prompt banner -->
+    <section class="card-teal" aria-label="Paso a paso Gemini">
+      <h2>Continuemos con el tema de “Herramientas de red con IA, para generar imágenes”</h2>
+      <p>Paso 1.- Abre Gemini y dar clic en el signo <strong>+</strong> y seleccionar “Crear imagen”</p>
+      <p>Paso 2.- Colocar el siguiente prompt:</p>
+      <div class="prompt-box">
+        "Fotografía desde el interior de un vaso de frappuccino de fresa de Starbucks mirando hacia arriba. Perspectiva de lente ojo de pez extrema. Se observan las paredes transparentes del vaso con gotas de condensación, jarabe de fresa deslizándose y trozos de hielo en primer plano. Arriba, a través de la crema batida y el domo transparente, se alcanza a ver el techo del salón de clases y la iluminación del techo. Estilo fotográfico hiperrealista, iluminación natural, alto detalle."
+      </div>
+      <p>Paso 3.- Coloca una foto tuya y dale en “Enviar”</p>
+    </section>
+
+    <!-- ================= PAGE 4 ================= -->
+
+    <!-- Final Quiz Section -->
+    <section class="card-quiz" aria-label="Evaluación Final">
+      <p>¡Llegó el momento de la verdad! 🧠 Completa esta prueba para evaluar tu nivel de preparación: veamos si estás listo para asegurar ese 10 en el examen final 🏆 o si necesitamos repasar un poco más para ir a la segura. 🚀✨</p>
+      <a href="juego.html" class="btn btn-silver" id="btn-prueba">prueba</a>
+    </section>
+
+  </main>
+
+</body>
+</html>

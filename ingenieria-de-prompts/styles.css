@@ -1,0 +1,358 @@
+/* ==========================================================================
+   Tema Académico Premium - Ingeniería de Prompts y Redes Neuronales
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Palette */
+  --bg-main: #f8fafc;
+  --text-dark: #0f172a;
+  --text-muted: #334155;
+
+  /* Card Themes from Document */
+  --green-card-bg: #e6f4ea;
+  --green-card-border: #a8e6cf;
+  --green-card-text: #0d3b2e;
+
+  --pink-card-bg: #fce8e6;
+  --pink-card-border: #f8bbd0;
+  --pink-card-text: #3c121e;
+
+  --gray-card-bg: #eaeff2;
+  --gray-card-border: #d0dbe2;
+  --gray-card-text: #1a252c;
+
+  --black-card-bg: #0d1117;
+  --black-card-text: #ffffff;
+
+  --teal-card-bg: #0f5257;
+  --teal-card-text: #ffffff;
+
+  /* Accent Colors */
+  --btn-blue: #0284c7;
+  --btn-blue-hover: #0369a1;
+  --btn-teal: #0d6efd;
+  --btn-shadow: rgba(2, 132, 199, 0.25);
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 16px 36px rgba(15, 23, 42, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-main);
+  color: var(--text-dark);
+  line-height: 1.6;
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  max-width: 960px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+/* Header Section */
+.doc-header {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.doc-header .divider {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #0284c7, transparent);
+  margin: 1.25rem auto;
+  width: 85%;
+}
+
+.doc-header h1 {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #0f4c81;
+  font-style: italic;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+/* Grids */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Cards Base */
+.card {
+  padding: 1.75rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Green Card Style */
+.card-green {
+  background-color: var(--green-card-bg);
+  border: 1px solid var(--green-card-border);
+  color: var(--green-card-text);
+}
+
+.card-green h2, .card-green strong {
+  color: #044e3b;
+}
+
+/* Pink Card Style */
+.card-pink {
+  background-color: #f7d6e6;
+  border: 1px solid #f1b3d3;
+  color: #3b0764;
+  border-radius: 24px;
+}
+
+.card-pink h2 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  margin-bottom: 1rem;
+  color: #3b0764;
+}
+
+.card-pink ol, .card-pink ul {
+  padding-left: 1.4rem;
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.card-pink li {
+  margin-bottom: 0.5rem;
+}
+
+.pink-footer {
+  margin-top: 1.25rem;
+  font-weight: 500;
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+
+/* Quickdraw Row Header */
+.quickdraw-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Section Main Heading */
+.section-heading {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #0f4c81;
+  text-align: center;
+  margin: 1rem 0 0.5rem 0;
+}
+
+/* Gray Card Style */
+.card-gray {
+  background-color: var(--gray-card-bg);
+  border: 1px solid var(--gray-card-border);
+  color: var(--gray-card-text);
+}
+
+.card-gray h2, .card-gray h3 {
+  font-family: var(--font-heading);
+  margin-bottom: 1rem;
+}
+
+.card-gray ul {
+  padding-left: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.card-gray li {
+  margin-bottom: 0.6rem;
+}
+
+/* Black Card Style */
+.card-black {
+  background-color: var(--black-card-bg);
+  color: var(--black-card-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.card-black h3 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+/* Teal Card Style */
+.card-teal {
+  background-color: #0b5969;
+  color: #ffffff;
+  padding: 2rem;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.card-teal h2 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.card-teal p {
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+}
+
+.prompt-box {
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1.25rem;
+  border-radius: var(--radius-md);
+  margin: 1rem 0;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e2e8f0;
+  font-style: italic;
+}
+
+/* Final Quiz Card */
+.card-quiz {
+  background-color: #0b5969;
+  color: #ffffff;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.75rem;
+}
+
+.card-quiz p {
+  font-size: 1.15rem;
+  max-width: 800px;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  border: none;
+  border-radius: 9999px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px var(--btn-shadow);
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  background: linear-gradient(135deg, #0369a1, #075985);
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-silver {
+  background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);
+  color: #1e293b;
+  border: 1px solid #94a3b8;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  padding: 0.85rem 3.5rem;
+  font-size: 1.1rem;
+  border-radius: 12px;
+}
+
+.btn-silver:hover {
+  background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+  transform: translateY(-1px);
+}
+
+/* Card Teacher Header Static Box */
+.card-teacher-title {
+  background-color: #d1d5db;
+  color: #4b5563;
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin-bottom: 1.5rem;
+}
+
+/* Image wrappers */
+.img-wrapper {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.img-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.flex-center-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}

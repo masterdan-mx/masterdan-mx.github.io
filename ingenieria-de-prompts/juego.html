@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Desafío IT: Inteligencia Artificial e Ingeniería de Prompts</title>
+    <style>
+        body { font-family: 'Consolas', monospace; background: #0a0a0a; color: #00ff41; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        #game-box { width: 750px; border: 1px solid #00ff41; padding: 30px; background: #000; box-shadow: 0 0 20px rgba(0, 255, 65, 0.2); }
+        .stats { display: flex; justify-content: space-between; border-bottom: 1px solid #00ff41; margin-bottom: 25px; padding-bottom: 10px; font-size: 1.1rem; }
+        .q-text { font-size: 1.3rem; margin-bottom: 25px; color: #fff; line-height: 1.4; }
+        .options { display: grid; gap: 12px; }
+        button { background: #000; border: 1px solid #00ff41; color: #00ff41; padding: 15px; cursor: pointer; border-radius: 4px; transition: 0.2s; text-align: left; font-size: 1rem; }
+        button:hover { background: #00ff41; color: #000; font-weight: bold; }
+        input { background: #000; border: 1px solid #00ff41; color: #00ff41; padding: 10px; width: 80%; margin-bottom: 20px; font-family: inherit; font-size: 1.2rem; }
+        .hidden { display: none; }
+        #cert { background: #fff; color: #000; padding: 50px; text-align: center; border: 15px double #000; margin-top: 20px; }
+        .life-count { color: #ff3e3e; }
+        .btn-print { background: #00ff41; color: #000; font-weight: bold; padding: 20px; width: 100%; margin-top: 20px; cursor: pointer; border: none; }
+    </style>
+</head>
+<body>
+
+<div id="game-box">
+    <div id="login-screen">
+        <h1>LOGIN REQUERIDO</h1>
+        <p>Introduce tu nombre completo para acceder a la terminal de examen:</p>
+        <input type="text" id="user-name-input" placeholder="Nombre Apellido" autocomplete="off">
+        <br>
+        <button onclick="startGame()" style="width: 100%; text-align: center;">INICIAR SESIÓN</button>
+    </div>
+
+    <div id="ui" class="hidden">
+        <div class="stats">
+            <span>NIVEL: <span id="lvl">1</span></span>
+            <span>PROGRESO: <span id="prog">1/15</span></span>
+            <span class="life-count">VIDAS: <span id="lives">3</span></span>
+        </div>
+        <div id="q-text" class="q-text">Estableciendo conexión...</div>
+        <div id="opts" class="options"></div>
+    </div>
+
+    <div id="game-over" class="hidden" style="text-align:center">
+        <h1 style="color:#ff3e3e">ERROR CRÍTICO: ACCESO REVOCADO</h1>
+        <p>Has agotado tus vidas. El sistema ha bloqueado tu perfil.</p>
+        <button onclick="location.reload()" style="text-align:center; width: 100%;">REINTENTAR ACCESO</button>
+    </div>
+
+    <div id="victory" class="hidden">
+        <div id="cert">
+            <h1 style="margin:0">CERTIFICADO DE INFORMÁTICA I</h1>
+            <p>Otorgado a:</p>
+            <h2 id="cert-name" style="text-decoration: underline; color: #000; font-size: 2rem;"></h2>
+            <p>Por demostrar competencia excepcional en <strong>Inteligencia Artificial e Ingeniería de Prompts</strong>.</p>
+            <p style="margin-top: 40px;"><small id="cert-date"></small></p>
+        </div>
+        <button class="btn-print" onclick="window.print()">EXPORTAR EVIDENCIA (PDF)</button>
+    </div>
+</div>
+
+<script>
+    // Banco de preguntas niveladas y simplificadas
+    const bank = [
+        { q: "¿Qué hace un Chatbot como Gemini cuando le haces una pregunta?", a: ["Responde con texto según lo que le pidas", "Formatea tu computadora", "Crea carpetas en tu escritorio por sí solo", "Descarga archivos automáticamente"], c: 0 },
+        { q: "¿Cuál es la diferencia de un Agente de IA frente a un Chatbot?", a: ["Es más lento para escribir", "Puede realizar tareas completas en la computadora sin que lo supervises", "Solo responde con imágenes", "No necesita conexión a Internet"], c: 1 },
+        { q: "Si le pides a un Chatbot que cree una carpeta en tu escritorio y dice que no puede, ¿por qué ocurre?", a: ["Porque no tiene permisos para controlar tu sistema operativo directamente", "Porque la computadora no tiene memoria", "Porque la carpeta ya existe", "Porque el navegador está cerrado"], c: 0 },
+        { q: "¿Qué es un Prompt en Inteligencia Artificial?", a: ["Un virus informático", "La instrucción o texto que le das a la IA para obtener una respuesta", "Una tecla del teclado", "El nombre de un programa de diseño"], c: 1 },
+        { q: "¿A qué se refiere la regla 'Basura entra, basura sale'?", a: ["Si borras un archivo se va a la papelera", "Si das un prompt vago o malo, la respuesta de la IA será mala", "Si la computadora se apaga pierdes todo", "Si usas internet se llena de basura el sistema"], c: 1 },
+        { q: "¿Qué significan las siglas del Framework ROCA?", a: ["Rol, Objetivo, Contexto, Atributos", "Red, Orden, Control, Archivo", "Razonamiento, Opción, Criterio, Ayuda", "Respuesta, Origen, Código, Acción"], c: 0 },
+        { q: "En el Framework ROCA, ¿para qué sirve definir el 'Rol'?", a: ["Para decirle a la IA qué personaje o experto debe simular", "Para cambiar el color de la pantalla", "Para limitar las palabras a 10", "Para apagar la inteligencia artificial"], c: 0 },
+        { q: "En el Framework ROCA, ¿qué le indicas a la IA cuando le das el 'Contexto'?", a: ["Tu nombre completo", "Los antecedentes e información de fondo sobre la situación", "La velocidad de respuesta", "El tipo de letra que debe usar"], c: 1 },
+        { q: "En el Framework ROCA, ¿cuál de estos es un ejemplo de 'Atributo'?", a: ["Pedirle que responda en máximo 2 párrafos y con tono formal", "Decirle 'Hola buenos días'", "Preguntarle qué hora es", "Pedirle que busque un video"], c: 0 },
+        { q: "¿Cómo se le llama a la técnica donde le muestras a la IA un par de ejemplos de cómo quieres la respuesta antes de pedirle la tarea?", a: ["Prompting sin contexto", "Entrenamiento con ejemplos (Few-Shot)", "Borrado de memoria", "Consulta directa"], c: 1 },
+        { q: "Si la IA se equivoca en un problema de lógica, ¿qué instrucción le debes dar para obligarla a razonar bien?", a: ["'Responde lo más rápido que puedas'", "'Explica tu razonamiento paso a paso antes de dar la respuesta final'", "'Dame solo el resultado sin explicar nada'", "'Genera la respuesta en formato de imagen'"], c: 1 },
+        { q: "Si la IA es el motor para generar contenido, ¿quién es el piloto?", a: ["El navegador web", "Tú, porque guías e iteras los prompts para obtener el resultado deseado", "El procesador de la computadora", "El servidor de Google"], c: 1 },
+        { q: "¿Cómo adivina la herramienta 'Quick, Draw!' lo que estás dibujando?", a: ["Lee lo que estás pensando", "Reconoce los trazos y patrones en tiempo real usando una red neuronal", "Busca imágenes en tu computadora", "Usa la cámara web de tu equipo"], c: 1 },
+        { q: "Si usas un Agente de IA para instalar un programa en tu equipo, el agente se encarga de:", a: ["Buscar, descargar y ejecutar la instalación por ti", "Solo darte las instrucciones escritas para que tú lo hagas", "Mandarte un correo electrónico", "Mostrarte un video explicativo"], c: 0 },
+        { q: "Para transformar una foto normal en una imagen de arte digital con IA, ¿qué debes ajustar en el prompt?", a: ["La dirección IP", "Los detalles del estilo visual (luces, colores, tipo de arte)", "La contraseña del equipo", "El tamaño de la memoria RAM"], c: 1 }
+    ];
+
+    const practicalCases = [
+        { q: "CASO 1: Quieres que una herramienta cree una carpeta, programe el juego 'Snake' y lo abra solo en el navegador. ¿Qué usas?", a: ["Un Chatbot conversacional", "Un Agente de IA (como Antigravity)", "Un buscador de internet", "El Bloc de notas"], c: 1 },
+        { q: "CASO 2: Escribes el prompt 'Dame ideas de negocios' y la respuesta es muy general. ¿Qué elemento de ROCA te faltó agregar?", a: ["El Contexto y los Atributos para especificar el tipo de negocio", "Poner el texto en negritas", "Guardar la respuesta en un documento", "Escribir la orden en inglés"], c: 0 },
+        { q: "CASO 3: Tienes el prompt: 'Actúa como un profesor de informática y explícame qué es el hardware en 3 viñetas'. ¿A qué parte corresponde 'Actúa como un profesor'?", a: ["Al Objetivo", "Al Rol", "A los Atributos", "Al Contexto"], c: 1 },
+        { q: "CASO 4: Pediste un resumen y la IA te entregó 5 páginas de texto. Para corregirlo, ¿qué Atributo debes indicarle?", a: ["Límite de longitud (ej. 'resumen en menos de 200 palabras')", "Cambiar de navegador", "Decirle que actúe como doctor", "Borrar la pregunta"], c: 0 },
+        { q: "CASO 5: Quieres generar la imagen de un vaso de café en un estilo muy específico. ¿Cuál prompt está mejor estructurado?", a: ["'Haz un café bonito'", "'Foto hiperrealista en perspectiva ojo de pez desde dentro de un vaso con hielo'", "'Dibujo de un vaso'", "'Imagen de cafeteria'"], c: 1 }
+    ];
+
+    let currentLvl = 1;
+    let lives = 3;
+    let qIdx = 0;
+    let levelSet = [];
+    let userName = "";
+
+    function startGame() {
+        userName = document.getElementById('user-name-input').value.trim();
+        if (!userName) { alert("Acceso denegado: Se requiere nombre completo."); return; }
+        document.getElementById('login-screen').classList.add('hidden');
+        document.getElementById('ui').classList.remove('hidden');
+        initLevel();
+    }
+
+    function initLevel() {
+        qIdx = 0;
+        document.getElementById('lvl').innerText = currentLvl;
+        document.getElementById('lives').innerText = lives;
+        
+        if (currentLvl === 1) {
+            levelSet = shuffle(bank).slice(0, 15);
+            document.getElementById('prog').innerText = "1/15";
+        } else if (currentLvl === 2) {
+            levelSet = [...practicalCases];
+            document.getElementById('prog').innerText = "1/5";
+        }
+        render();
+    }
+
+    function shuffle(arr) { return arr.sort(() => 0.5 - Math.random()); }
+
+    function render() {
+        const q = levelSet[qIdx];
+        document.getElementById('prog').innerText = (qIdx + 1) + "/" + levelSet.length;
+        document.getElementById('q-text').innerText = q.q;
+        const container = document.getElementById('opts');
+        container.innerHTML = '';
+        q.a.forEach((opt, i) => {
+            const btn = document.createElement('button');
+            btn.innerText = opt;
+            btn.onclick = () => check(i);
+            container.appendChild(btn);
+        });
+    }
+
+    function check(i) {
+        const qData = levelSet[qIdx];
+        if (i === qData.c) {
+            qIdx++;
+            
+            // Lógica de Checkpoint cada 5 preguntas completadas
+            if (qIdx % 5 === 0 && qIdx < levelSet.length) {
+                alert("¡CHECKPOINT ALCANZADO! Has respondido " + qIdx + " preguntas correctamente sin perder todas tus vidas. ¡Sigue así!");
+            }
+
+            if (qIdx >= levelSet.length) {
+                currentLvl++;
+                if (currentLvl > 2) finish();
+                else { alert("¡NIVEL 1 COMPLETADO! Pasando a la fase de Casos Prácticos..."); initLevel(); }
+            } else render();
+        } else {
+            lives--;
+            document.getElementById('lives').innerText = lives;
+            const correctText = qData.a[qData.c];
+            if (lives <= 0) {
+                alert("¡ERROR CRÍTICO! La respuesta correcta era: " + correctText);
+                document.getElementById('ui').classList.add('hidden');
+                document.getElementById('game-over').classList.remove('hidden');
+            } else {
+                alert("INCORRECTO. La respuesta correcta era: " + correctText + ".\n\nVidas restantes: " + lives);
+            }
+        }
+    }
+
+    function finish() {
+        document.getElementById('ui').classList.add('hidden');
+        document.getElementById('victory').classList.remove('hidden');
+        document.getElementById('cert-name').innerText = userName.toUpperCase();
+        document.getElementById('cert-date').innerText = "Fecha de Emisión: " + new Date().toLocaleDateString();
+    }
+</script>
+</body>
+</html>
